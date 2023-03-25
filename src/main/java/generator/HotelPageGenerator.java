@@ -16,7 +16,7 @@ public class HotelPageGenerator {
     List<Hotel> hotels = hotelService.getAllHotel();
 
     public String getMainPage() throws IOException {
-        String mainPageTemplate = Files.readString(Paths.get("/html/main-page.html"));
+        String mainPageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/main-page.html"));
         StringBuilder hotelListHtml = new StringBuilder();
         int buttonId = 1;
         for (Hotel hotel : hotels) {
@@ -37,7 +37,7 @@ public class HotelPageGenerator {
     }
 
     public String getHotelDetails() throws IOException {
-        String pageTemplate = Files.readString(Paths.get("/html/main-page.html"));
+        String pageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/hotel-details.html"));
         StringBuilder hotelListHtml = new StringBuilder();
         return pageTemplate;
     }
