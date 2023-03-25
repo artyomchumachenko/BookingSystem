@@ -188,6 +188,23 @@
     </style>
 </head>
 <body>
+<script>
+    function handleButtonClick(buttonId) {
+        // здесь можно использовать buttonId для определения какая кнопка была нажата
+        console.log("Нажата кнопка с id:", buttonId);
+        // window.open(`http://localhost:8081/details`, '_blank');
+        // отправка значения buttonId на сервер с помощью AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/details');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                console.log('Ответ сервера:', xhr.responseText);
+            }
+        };
+        xhr.send(encodeURI('buttonId=' + buttonId));
+    }
+</script>
 <div class="container">
     <div class="header">
         <div class="logo">Онлайн бронирование отелей</div>

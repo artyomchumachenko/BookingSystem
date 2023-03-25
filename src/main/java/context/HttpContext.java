@@ -3,8 +3,6 @@ package context;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class HttpContext {
     private final HttpServer httpServer;

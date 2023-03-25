@@ -1,14 +1,9 @@
 import com.sun.net.httpserver.HttpServer;
 import context.HttpContext;
-import entity.Hotel;
 import generator.HotelPageGenerator;
-import service.HotelService;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 
 public class MainApplication {
     public static void main(String[] args) throws IOException {

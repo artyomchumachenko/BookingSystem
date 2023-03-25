@@ -8,12 +8,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * Не работает должны образом
+ */
 public class HotelPageGenerator {
+    HotelService hotelService = new HotelService();
+    List<Hotel> hotels = hotelService.getAllHotel();
+
     public String getMainPage() throws IOException {
-        String mainPageTemplate = Files.readString(Paths.get("src/main/webapp/html/main-page.html"));
+        String mainPageTemplate = Files.readString(Paths.get("/html/main-page.html"));
         StringBuilder hotelListHtml = new StringBuilder();
-        HotelService hotelService = new HotelService();
-        List<Hotel> hotels = hotelService.getAllHotel();
+        int buttonId = 1;
         for (Hotel hotel : hotels) {
             hotelListHtml
                     .append("<li>")
@@ -22,15 +27,18 @@ public class HotelPageGenerator {
                     .append(hotel.getCity()).append(";\t")
                     .append(hotel.getAddress()).append(";\t")
                     .append(hotel.getPhone()).append("\t")
-                    .append("<button onclick=\"window.open('")
-                    .append("http://localhost:8081/details")
-                    .append("', '_blank')\">Подробнее</button>")
+                    .append("<button id=\"buttonId")
+                    .append(buttonId)
+                    .append("\" onclick=\"handleButtonClick(this.id)\">Подробнее</button>")
                     .append("</li>");
+            buttonId++;
         }
         return mainPageTemplate.replace("<!-- HOTEL_LIST -->", hotelListHtml.toString());
     }
 
     public String getHotelDetails() throws IOException {
-        return Files.readString(Paths.get("src/main/webapp/html/hotel-details.html"));
+        String pageTemplate = Files.readString(Paths.get("/html/main-page.html"));
+        StringBuilder hotelListHtml = new StringBuilder();
+        return pageTemplate;
     }
 }
