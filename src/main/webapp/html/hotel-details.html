@@ -9,45 +9,190 @@
             margin: 0;
             padding: 0;
         }
+
         header {
             background-color: #4CAF50;
             color: white;
             padding: 20px;
         }
+
         header h1 {
             margin: 0;
         }
+
         img {
             max-width: 100%;
             height: auto;
         }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
+
+        .image-container {
+            width: 500px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.1);
+        }
+
+        .hotel-description {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+        }
+
+        .hotel-description h2 {
+            margin-top: 0;
+        }
+
+        .hotel-amenities {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+        }
+
+        .hotel-amenities h3 {
+            margin-top: 0;
+        }
+
+        .hotel-amenities ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .hotel-amenities li:before {
+            content: "✔";
+            margin-right: 5px;
+        }
+
+        .hotel-info {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+        }
+
+        .hotel-info h3 {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .hotel-info ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .hotel-info li {
+            margin-bottom: 10px;
+        }
+
+        .hotel-info li strong {
+            display: inline-block;
+            width: 100px;
+        }
+
+        .hotel-header {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .hotel-header h2 {
+            margin: 0;
+        }
+
+        .hotel-rating {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hotel-rating span:first-child {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .hotel-rating span:last-child {
+            font-size: 18px;
+        }
+
         h2 {
             color: #4CAF50;
         }
     </style>
 </head>
 <body>
-<header>
-    <h1>Название отеля</h1>
-</header>
-<img src="hotel.jpg" alt="Фото отеля">
-<div class="container">
+<div class="hotel-header">
+    <h2>
+        <!--        Название отеля-->
+    </h2>
+    <div class="hotel-rating">
+        <span>★★★★★</span>
+        <span>4.5</span>
+    </div>
+</div>
+<div class="image-container">
+    <img src="
+<!--Ссылка на фото отеля-->
+" alt="Фото отеля">
+</div>
+<div class="hotel-description">
     <h2>Описание</h2>
-    <p>Здесь вы можете добавить описание отеля.</p>
-    <h2>Удобства</h2>
+    <p>
+        <!--        Здесь вы можете добавить описание отеля.-->
+    </p>
+</div>
+<div class="hotel-amenities">
+    <h3>Удобства</h3>
     <ul>
         <li>Бесплатный Wi-Fi</li>
+        <li>Кондиционер</li>
         <li>Бассейн</li>
         <li>Фитнес-центр</li>
-        <li>Ресторан</li>
     </ul>
-    <h2>Цены и бронирование</h2>
-    <p>Здесь вы можете добавить информацию о ценах и бронировании.</p>
+</div>
+<div class="hotel-info">
+    <h3>Информация об отеле</h3>
+    <ul>
+        <li><strong>Страна:</strong> США</li>
+        <li><strong>Штат:</strong> Калифорния</li>
+        <li><strong>Город:</strong> Сан-Франциско</li>
+        <li><strong>Адрес:</strong> 123 Main Street</li>
+        <li><strong>Email:</strong> info@example.com</li>
+        <li><strong>Телефон:</strong> +1 (123) 456-7890</li>
+        <li><strong>Веб-сайт:</strong> <a href="https://example.com">https://example.com</a></li>
+    </ul>
+    <h3>Доступность</h3>
+    <ul>
+        <li><strong>Количество свободных номеров:</strong> 5</li>
+        <li><strong>Время заезда:</strong> 14:00</li>
+        <li><strong>Время выезда:</strong> 12:00</li>
+    </ul>
 </div>
 </body>
 </html>

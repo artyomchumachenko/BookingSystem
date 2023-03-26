@@ -18,7 +18,7 @@ public class HotelPageGenerator {
     public String getMainPage() throws IOException {
         String mainPageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/main-page.html"));
         StringBuilder hotelListHtml = new StringBuilder();
-        int buttonId = 1;
+        int buttonId = 2;
         for (Hotel hotel : hotels) {
             hotelListHtml
                     .append("<li>")
@@ -36,9 +36,17 @@ public class HotelPageGenerator {
         return mainPageTemplate.replace("<!-- HOTEL_LIST -->", hotelListHtml.toString());
     }
 
-    public String getHotelDetails() throws IOException {
+    public String getHotelDetails(Hotel hotel) throws IOException {
         String pageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/hotel-details.html"));
-        StringBuilder hotelListHtml = new StringBuilder();
-        return pageTemplate;
+        pageTemplate = pageTemplate.replace("<!--        Название отеля-->", hotel.getHotel_name());
+        pageTemplate = pageTemplate.replace("<!--        Здесь вы можете добавить описание отеля.-->", hotel.getDescription());
+        pageTemplate = pageTemplate.replace("<!--        Здесь вы можете добавить информацию о ценах и бронировании.-->", hotel.getCountry());
+        return pageTemplate.replace("<!--Ссылка на фото отеля-->", hotel.getPhoto_link());
+    }
+
+    public Hotel getInfoAboutCurrentHotel(String buttonId) {
+        String digits = buttonId.replaceAll("\\D+", "");
+        int id = Integer.parseInt(digits);
+        return hotels.get(id - 2);
     }
 }
