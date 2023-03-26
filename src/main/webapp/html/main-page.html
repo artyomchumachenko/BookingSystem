@@ -3,8 +3,8 @@
     <title>Booking System</title>
     <meta charset="UTF-8">
     <!-- Подключаем файл со стилями CSS -->
-<!--    <link rel="stylesheet" href="css/main-page.css">-->
-<!--    <link rel="stylesheet" href="css/block-hotels.css">-->
+    <!--    <link rel="stylesheet" href="css/main-page.css">-->
+    <!--    <link rel="stylesheet" href="css/block-hotels.css">-->
     <style>
         /* Файл css/main-page.css */
         * {
@@ -118,12 +118,12 @@
         }
 
         .footer p {
-            color:#333333;
+            color: #333333;
         }
 
         /* Меняем шрифт на более красивый */
         body {
-            font-family:"Arial", sans-serif;
+            font-family: "Arial", sans-serif;
         }
 
         /* Файл css/main.css */
@@ -177,22 +177,26 @@
         /* Добавляем стили для описаний отелей */
         .hotels p {
             font-size: 16px;
-            color:#666666;
+            color: #666666;
         }
 
         /* Добавляем стили для рейтинга и цены отелей */
         .hotels span {
             font-size: 18px;
-            color:#333333;
+            color: #333333;
         }
     </style>
 </head>
 <body>
+<form id="detailsForm" action="/BookingSystem_war/details" method="get">
+    <input type="hidden" name="buttonId" id="buttonIdInput">
+</form>
 <script>
     function handleButtonClick(buttonId) {
         // здесь можно использовать buttonId для определения какая кнопка была нажата
         console.log("Нажата кнопка с id:", buttonId);
-        // window.open(`http://localhost:8081/details`, '_blank');
+        document.getElementById("buttonIdInput").value = buttonId;
+        document.getElementById("detailsForm").submit();
     }
 </script>
 <div class="container">
