@@ -12,21 +12,18 @@ import java.util.List;
  * Не работает должны образом
  */
 public class HotelPageGenerator {
-    HotelService hotelService = new HotelService();
-    List<Hotel> hotels = hotelService.getAllHotel();
-
-    public String getMainPage() throws IOException {
+    public String getMainPage(List<Hotel> hotels) throws IOException {
         String mainPageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/main-page.html"));
         StringBuilder hotelListHtml = new StringBuilder();
         int buttonId = 2;
         for (Hotel hotel : hotels) {
             hotelListHtml
                     .append("<li>")
-                    .append(hotel.getHotel_name()).append(";\t")
+                    .append(hotel.getName()).append(";\t")
                     .append(hotel.getCountry()).append(";\t")
                     .append(hotel.getCity()).append(";\t")
                     .append(hotel.getAddress()).append(";\t")
-                    .append(hotel.getPhone()).append("\t")
+                    .append(hotel.getPhoneNumber()).append("\t")
                     .append("<button id=\"buttonId")
                     .append(buttonId)
                     .append("\" onclick=\"handleButtonClick(this.id)\">Подробнее</button>")
@@ -38,13 +35,13 @@ public class HotelPageGenerator {
 
     public String getHotelDetails(Hotel hotel) throws IOException {
         String pageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/hotel-details.html"));
-        pageTemplate = pageTemplate.replace("<!--        Название отеля-->", hotel.getHotel_name());
+        pageTemplate = pageTemplate.replace("<!--        Название отеля-->", hotel.getName());
         pageTemplate = pageTemplate.replace("<!--        Здесь вы можете добавить описание отеля.-->", hotel.getDescription());
         pageTemplate = pageTemplate.replace("<!--        Здесь вы можете добавить информацию о ценах и бронировании.-->", hotel.getCountry());
-        return pageTemplate.replace("<!--Ссылка на фото отеля-->", hotel.getPhoto_link());
+        return pageTemplate.replace("<!--Ссылка на фото отеля-->", hotel.getProfileIcon());
     }
 
-    public Hotel getInfoAboutCurrentHotel(String buttonId) {
+    public Hotel getHotelByButtonId(List<Hotel> hotels, String buttonId) {
         String digits = buttonId.replaceAll("\\D+", "");
         int id = Integer.parseInt(digits);
         return hotels.get(id - 2);
