@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Контакты
+ */
 @WebServlet(name = "ContactsServlet", urlPatterns = {"/contacts"})
 public class ContactsServlet extends HttpServlet {
 

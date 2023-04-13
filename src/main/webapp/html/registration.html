@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация нового пользователя</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F0F8FF;
+        }
+        .registration-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        input[type=text], input[type=password], input[type=email] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .registration-form {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+<div class="registration-container">
+    <h2>Регистрация нового пользователя</h2>
+    <div class="registration-form">
+        <label for="username">Логин:</label><br>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="password">Пароль:</label><br>
+        <input type="password" id="password" name="password"><br><br>
+        <label for="confirmPassword">Подтвердите пароль:</label><br>
+        <input type="password" id="confirmPassword" name="confirmPassword"><br><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br><br>
+        <button onclick="register()">Зарегистрироваться</button><br>
+    </div>
+</div>
+
+<script>
+    function register() {
+        // Получаем значения полей пароля и подтверждения пароля
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        // Проверяем, совпадают ли пароли
+        if (password !== confirmPassword) {
+            alert("Пароли не совпадают!");
+            return;
+        }
+
+        var username = document.getElementById("username").value;
+        var email = document.getElementById("email").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "registration", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("username=" + username + "&password=" + password + "&email=" + email);
+
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var response = this.responseText;
+                console.log(response);
+            }
+        };
+    }
+</script>
+</body>
+</html>

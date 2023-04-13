@@ -1,10 +1,15 @@
 package entity;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
 
+/**
+ * Класс сущности User
+ */
 @Getter
+@Setter
 public class User {
     private UUID userId;
     private String login;

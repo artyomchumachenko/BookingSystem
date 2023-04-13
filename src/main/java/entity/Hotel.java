@@ -2,7 +2,6 @@ package entity;
 
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**

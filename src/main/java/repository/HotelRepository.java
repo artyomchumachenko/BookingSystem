@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Класс для отправки SQL запросов в базу данных для таблицы @hotels
+ */
 public class HotelRepository {
     private Database database = new Database();
 

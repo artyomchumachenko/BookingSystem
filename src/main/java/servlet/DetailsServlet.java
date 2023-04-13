@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * "Подробнее" для какого-либо отеля
+ */
 @WebServlet(name = "DetailsServlet", urlPatterns = {"/details"})
 public class DetailsServlet extends HttpServlet {
     HotelPageGenerator hotelPageGenerator = new HotelPageGenerator();

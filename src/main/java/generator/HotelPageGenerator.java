@@ -1,7 +1,6 @@
 package generator;
 
 import entity.Hotel;
-import service.HotelService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * Не работает должны образом
+ * Класс для динамической генерации главной страницы сайта
  */
 public class HotelPageGenerator {
     public String getMainPage(List<Hotel> hotels) throws IOException {

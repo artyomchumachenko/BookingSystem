@@ -4,7 +4,6 @@ import entity.Hotel;
 import generator.HotelPageGenerator;
 import service.HotelService;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +14,8 @@ import java.util.List;
 /**
  * URL стартовой страницы
  * https://localhost:8443/BookingSystem_war/
+ *
+ * Главная страница сайта
  */
 @WebServlet("")
 public class HotelServlet extends HttpServlet {
