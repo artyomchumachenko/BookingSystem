@@ -1,11 +1,11 @@
 package servlet;
 
 import entity.User;
-import repository.UserRepository;
 import service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
     private final UserService userService;
 
     public LoginServlet() {
-        this.userService = new UserService(new UserRepository());
+        this.userService = new UserService();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,9 +33,15 @@ public class LoginServlet extends HttpServlet {
         // Получаем значения полей логина и пароля из запроса
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        System.out.println(username);
-        System.out.println(password);
 
+        tryToAuth(username, password, response);
+
+        // Отправляем ответ
+        response.setContentType("text/plain");
+        response.getWriter().println("You is " + username + "?");
+    }
+
+    private void tryToAuth(String username, String password, HttpServletResponse response) {
         // Здесь можно добавить код для проверки логина и пароля
         User user = null;
         try {
@@ -43,15 +49,12 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         if (user != null) {
-            System.out.println("Send User to Cookie");
+            Cookie cookie = new Cookie("username", username);
+            cookie.setMaxAge(86400); // Установка времени жизни в 24 часа
+            response.addCookie(cookie); // Добавление Cookie в ответ сервера
         } else {
             System.out.println("Drop message with Login Error");
         }
-
-        // Отправляем ответ
-        response.setContentType("text/plain");
-        response.getWriter().println("You enter to system how " + username);
     }
 }

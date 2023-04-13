@@ -6,7 +6,7 @@ import repository.HotelRepository;
 import java.util.List;
 
 public class HotelService {
-    private HotelRepository hotelRepository;
+    private final HotelRepository hotelRepository;
 
     public HotelService() {
         this.hotelRepository = new HotelRepository();

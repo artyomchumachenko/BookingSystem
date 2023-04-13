@@ -1,7 +1,7 @@
 package servlet;
 
 import entity.Hotel;
-import generator.HotelPageGenerator;
+import generator.HotelDetailsPageGenerator;
 import service.HotelService;
 
 import javax.servlet.annotation.WebServlet;
@@ -16,19 +16,21 @@ import java.util.List;
  */
 @WebServlet(name = "DetailsServlet", urlPatterns = {"/details"})
 public class DetailsServlet extends HttpServlet {
-    HotelPageGenerator hotelPageGenerator = new HotelPageGenerator();
-    HotelService hotelService = new HotelService();
-    List<Hotel> hotels = hotelService.getAllHotel();
+
+    private final HotelService hotelService;
+
+    public DetailsServlet() {
+        this.hotelService = new HotelService();
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HotelDetailsPageGenerator hotelDetailsPageGenerator = new HotelDetailsPageGenerator();
+
+        List<Hotel> hotels = hotelService.getAllHotel();
         String buttonId = request.getParameter("buttonId");
-        System.out.println(buttonId);
-        Hotel hotel = hotelPageGenerator.getHotelByButtonId(hotels, buttonId);
-        // здесь можно использовать buttonId для определения какая кнопка была нажата
-        // и получить соответствующую информацию об отеле
-        // Отправляем ответ
+
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().print(hotelPageGenerator.getHotelDetails(hotel));
+        response.getWriter().print(hotelDetailsPageGenerator.getHotelDetailsPage(hotels, buttonId));
     }
 }

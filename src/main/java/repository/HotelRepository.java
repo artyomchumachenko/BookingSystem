@@ -15,9 +15,10 @@ import java.util.UUID;
  * Класс для отправки SQL запросов в базу данных для таблицы @hotels
  */
 public class HotelRepository {
-    private Database database = new Database();
+    private final Database database;
 
     public HotelRepository() {
+        this.database = new Database();
     }
 
     public List<Hotel> getAllHotel() {

@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * Класс для логической обработки аутентификации пользователя
  */
 public class UserAuthenticationService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserAuthenticationService(UserRepository userRepository) {
         this.userRepository = userRepository;

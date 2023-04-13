@@ -13,9 +13,10 @@ import java.util.UUID;
  * Класс для отправки SQL запросов в базу данных для таблицы @users
  */
 public class UserRepository {
-    private Database database = new Database();
+    private final Database database;
 
     public UserRepository() {
+        this.database = new Database();
     }
 
     public User findByLogin(String login) throws SQLException {

@@ -9,10 +9,21 @@ import java.util.List;
 
 /**
  * Класс для динамической генерации главной страницы сайта
+ * TODO перенести генерацию страницы "Подробнее об отеле" в другой класс
  */
 public class HotelPageGenerator {
-    public String getMainPage(List<Hotel> hotels) throws IOException {
+
+    /**
+     * Генерации главной страницы сайта
+     */
+    public String getMainPage(List<Hotel> hotels, String usernameFromCookie) throws IOException {
         String mainPageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/main-page.html"));
+        mainPageTemplate = hotelButtonsAllGenerate(hotels, mainPageTemplate);
+        mainPageTemplate = profileButtonGenerate(usernameFromCookie, mainPageTemplate);
+        return mainPageTemplate;
+    }
+
+    private String hotelButtonsAllGenerate(List<Hotel> hotels, String pageTemplate) {
         StringBuilder hotelListHtml = new StringBuilder();
         int buttonId = 2;
         for (Hotel hotel : hotels) {
@@ -29,20 +40,18 @@ public class HotelPageGenerator {
                     .append("</li>");
             buttonId++;
         }
-        return mainPageTemplate.replace("<!-- HOTEL_LIST -->", hotelListHtml.toString());
+        pageTemplate = pageTemplate.replace("<!-- HOTEL_LIST -->", hotelListHtml.toString());
+        return pageTemplate;
     }
 
-    public String getHotelDetails(Hotel hotel) throws IOException {
-        String pageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/hotel-details.html"));
-        pageTemplate = pageTemplate.replace("<!--        Название отеля-->", hotel.getName());
-        pageTemplate = pageTemplate.replace("<!--        Здесь вы можете добавить описание отеля.-->", hotel.getDescription());
-        pageTemplate = pageTemplate.replace("<!--        Здесь вы можете добавить информацию о ценах и бронировании.-->", hotel.getCountry());
-        return pageTemplate.replace("<!--Ссылка на фото отеля-->", hotel.getProfileIcon());
-    }
-
-    public Hotel getHotelByButtonId(List<Hotel> hotels, String buttonId) {
-        String digits = buttonId.replaceAll("\\D+", "");
-        int id = Integer.parseInt(digits);
-        return hotels.get(id - 2);
+    private String profileButtonGenerate(String username, String pageTemplate) {
+        if (username != null) {
+            pageTemplate = pageTemplate.replace("<!--                Профиль-->", username);
+            pageTemplate = pageTemplate.replace("href=\"/BookingSystem_war/login\"",
+                    "href=\"/BookingSystem_war/profile\"");
+        } else {
+            pageTemplate = pageTemplate.replace("<!--                Профиль-->", "Войти");
+        }
+        return pageTemplate;
     }
 }

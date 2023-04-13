@@ -10,9 +10,10 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 public class UserService {
-    private UserRepository userRepository;
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    private final UserRepository userRepository;
+
+    public UserService() {
+        this.userRepository = new UserRepository();
     }
 
     public User authenticate(String login, String password) throws SQLException {
@@ -46,5 +47,9 @@ public class UserService {
 
     public boolean isLoginExist(String username) throws SQLException {
         return userRepository.findByLogin(username) != null;
+    }
+
+    public User findByLogin(String login) throws SQLException {
+        return userRepository.findByLogin(login);
     }
 }

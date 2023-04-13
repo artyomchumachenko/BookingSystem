@@ -1,7 +1,6 @@
 package servlet;
 
 import entity.User;
-import repository.UserRepository;
 import service.UserService;
 
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class RegistrationServlet extends HttpServlet {
     private final UserService userService;
 
     public RegistrationServlet() {
-        this.userService = new UserService(new UserRepository());
+        this.userService = new UserService();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -31,7 +30,13 @@ public class RegistrationServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
+        tryToRegistration(username, request, response);
+    }
 
+    private void tryToRegistration(
+            String username,
+            HttpServletRequest request, HttpServletResponse response
+    ) {
         try {
             if (userService.isLoginExist(username)) {
                 // Отправляем ответ
@@ -45,13 +50,11 @@ public class RegistrationServlet extends HttpServlet {
                 User user = new User(UUID.randomUUID(), username, password, email);
                 userService.createUser(user);
 
-                // Здесь можно добавить код для регистрации нового пользователя
-
                 // Отправляем ответ
                 response.setContentType("text/plain");
                 response.getWriter().println("You registration with username = " + username);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
     }

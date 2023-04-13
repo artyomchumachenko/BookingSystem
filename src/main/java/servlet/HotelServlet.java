@@ -1,5 +1,6 @@
 package servlet;
 
+import config.CookieHelper;
 import entity.Hotel;
 import generator.HotelPageGenerator;
 import service.HotelService;
@@ -19,14 +20,25 @@ import java.util.List;
  */
 @WebServlet("")
 public class HotelServlet extends HttpServlet {
-    HotelPageGenerator hotelPageGenerator = new HotelPageGenerator();
-    private HotelService hotelService = new HotelService();
+
+    private final HotelService hotelService;
+
+    public HotelServlet() {
+        this.hotelService = new HotelService();
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HotelPageGenerator hotelPageGenerator = new HotelPageGenerator();
+        CookieHelper cookieHelper = new CookieHelper();
+
         List<Hotel> hotels = hotelService.getAllHotel();
+        String usernameFromCookie = cookieHelper.getUsernameFromCookie(request);
 
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().print(hotelPageGenerator.getMainPage(hotels));
+        response.getWriter().print(hotelPageGenerator.getMainPage(
+                hotels,
+                usernameFromCookie
+        ));
     }
 }
