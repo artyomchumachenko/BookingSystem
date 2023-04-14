@@ -34,14 +34,11 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        tryToAuth(username, password, response);
-
-        // Отправляем ответ
-        response.setContentType("text/plain");
-        response.getWriter().println("You is " + username + "?");
+        tryToAuth(username, password, request, response);
     }
 
-    private void tryToAuth(String username, String password, HttpServletResponse response) {
+    private void tryToAuth(String username, String password,
+                           HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Здесь можно добавить код для проверки логина и пароля
         User user = null;
         try {
@@ -49,12 +46,18 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        response.setContentType("text/plain");
         if (user != null) {
             Cookie cookie = new Cookie("username", username);
             cookie.setMaxAge(86400); // Установка времени жизни в 24 часа
             response.addCookie(cookie); // Добавление Cookie в ответ сервера
+
+            // Отправляем ответ
+            response.getWriter().println("" + username + " enter to system");
         } else {
-            System.out.println("Drop message with Login Error");
+            // Отправляем ответ
+            response.setStatus(204);
+            response.getWriter().println("" + username + " - user is null");
         }
     }
 }

@@ -75,11 +75,28 @@
         .logout-button:hover {
             background-color: #cc0000;
         }
+
+        .home-button {
+            background-color: #cc0000;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px 20px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .home-button:hover {
+            background-color: #930000;
+        }
     </style>
 </head>
 <body>
 <header>
     <h1>Профиль пользователя</h1>
+    <button class="home-button" id="home-button">На главную</button>
 </header>
 <div class="container">
     <div class="profile-info">
@@ -106,5 +123,14 @@
         document.cookie = "password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/BookingSystem_war;";
         // Переходим на страницу логина
         window.location.href = "/BookingSystem_war/login";
+    });
+
+    // Получаем кнопку "На главную"
+    var homeButton = document.getElementById("home-button");
+
+    // Добавляем обработчик события клика
+    homeButton.addEventListener("click", function () {
+        // Переходим на главную страницу
+        window.location.href = "/BookingSystem_war";
     });
 </script>

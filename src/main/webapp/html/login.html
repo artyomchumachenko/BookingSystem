@@ -47,6 +47,13 @@
             padding: 20px;
             width: 30%;
         }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 20px; /* расстояние сверху от кнопок */
+            margin-bottom: 0; /* убираем отступ снизу */
+        }
     </style>
 </head>
 <body>
@@ -63,7 +70,7 @@
         <br>
         <button onclick="register()">Зарегистрироваться</button>
         <br>
-        <p id="error-message"></p> <!-- новый элемент для вывода сообщения об ошибке -->
+        <p class="error" id="error-message"></p>
     </div>
 </div>
 
@@ -86,9 +93,12 @@
 
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                var response = this.responseText;
-                console.log(response);
+                console.log(this.responseText);
                 window.location.href = "/BookingSystem_war";
+            }
+            if (this.status == 204) {
+                var errorMessage = document.getElementById("error-message");
+                errorMessage.textContent = "Ошибка ввода логина или пароля";
             }
         };
     }
