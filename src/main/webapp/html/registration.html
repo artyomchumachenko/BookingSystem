@@ -42,6 +42,13 @@
             padding: 20px;
             width: 30%;
         }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 20px; /* расстояние сверху от кнопок */
+            margin-bottom: 0; /* убираем отступ снизу */
+        }
     </style>
 </head>
 <body>
@@ -57,6 +64,7 @@
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email"><br><br>
         <button onclick="register()">Зарегистрироваться</button><br>
+        <p class="error" id="error-message"></p>
     </div>
 </div>
 
