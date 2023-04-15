@@ -47,13 +47,13 @@ public class RegistrationServlet extends HttpServlet {
             } else if (email.equals("")) {
                 response.setStatus(205);
                 response.getWriter().println("Email is null");
+            } else {
+                User user = new User(UUID.randomUUID(), username, password, email);
+                userService.createUser(user);
+
+                // Отправляем ответ
+                response.getWriter().println("You registration with username = " + username);
             }
-
-            User user = new User(UUID.randomUUID(), username, password, email);
-            userService.createUser(user);
-
-            // Отправляем ответ
-            response.getWriter().println("You registration with username = " + username);
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
