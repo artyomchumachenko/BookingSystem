@@ -73,10 +73,11 @@
         // Получаем значения полей пароля и подтверждения пароля
         var password = document.getElementById("password").value;
         var confirmPassword = document.getElementById("confirmPassword").value;
+        var errorMessage = document.getElementById("error-message");
 
         // Проверяем, совпадают ли пароли
         if (password !== confirmPassword) {
-            alert("Пароли не совпадают!");
+            errorMessage.textContent = "Пароли не совпадают";
             return;
         }
 
@@ -90,8 +91,16 @@
 
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                var response = this.responseText;
-                console.log(response);
+                alert("Регистрация прошла успешно!");
+                window.location.href = "/BookingSystem_war/login";
+                return;
+            }
+            if (this.status == 204) {
+                errorMessage.textContent = "Такой пользователь уже существует";
+                return;
+            }
+            if (this.status == 205) {
+                errorMessage.textContent = "Ошибка ввода email";
             }
         };
     }
