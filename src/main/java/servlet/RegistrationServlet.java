@@ -3,14 +3,14 @@ package servlet;
 import entity.User;
 import service.UserService;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.UUID;
 
 /**
  * Регистрация
@@ -28,16 +28,15 @@ public class RegistrationServlet extends HttpServlet {
         request.getRequestDispatcher("html/registration.html").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String username = request.getParameter("username");
-        tryToRegistration(username, request, response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        tryToRegistration(request, response);
     }
 
     private void tryToRegistration(
-            String username,
             HttpServletRequest request, HttpServletResponse response
     ) {
         response.setContentType("text/plain");
+        String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         try {
