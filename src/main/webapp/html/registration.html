@@ -70,24 +70,17 @@
 
 <script>
     function register() {
-        // Получаем значения полей пароля и подтверждения пароля
+        var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
         var confirmPassword = document.getElementById("confirmPassword").value;
-        var errorMessage = document.getElementById("error-message");
-
-        // Проверяем, совпадают ли пароли
-        if (password !== confirmPassword) {
-            errorMessage.textContent = "Пароли не совпадают";
-            return;
-        }
-
-        var username = document.getElementById("username").value;
         var email = document.getElementById("email").value;
+
+        var errorMessage = document.getElementById("error-message");
 
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "registration", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("username=" + username + "&password=" + password + "&email=" + email);
+        xhr.send("username=" + username + "&password=" + password + "&email=" + email + "&confirm=" + confirmPassword);
 
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -96,11 +89,7 @@
                 return;
             }
             if (this.status == 204) {
-                errorMessage.textContent = "Такой пользователь уже существует";
-                return;
-            }
-            if (this.status == 205) {
-                errorMessage.textContent = "Ошибка ввода email";
+                errorMessage.textContent = "Ошибка регистрации";
             }
         };
     }

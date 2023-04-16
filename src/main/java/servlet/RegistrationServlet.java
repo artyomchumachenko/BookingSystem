@@ -38,23 +38,17 @@ public class RegistrationServlet extends HttpServlet {
         response.setContentType("text/plain");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirm");
         String email = request.getParameter("email");
         try {
-            if (userService.isLoginExist(username)) {
-                // Отправляем ответ
-                response.setStatus(204);
-                response.getWriter().println("This user already exist");
-            } else if (email.equals("")) {
-                response.setStatus(205);
-                response.getWriter().println("Email is null");
-            } else {
+            if (userService.isRegistration(username, password, confirmPassword, email)) {
                 User user = new User(UUID.randomUUID(), username, password, email);
                 userService.createUser(user);
-
-                // Отправляем ответ
-                response.getWriter().println("You registration with username = " + username);
+            } else {
+                response.setStatus(204);
+                response.getWriter().println("Error");
             }
-        } catch (SQLException | IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

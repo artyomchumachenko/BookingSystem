@@ -2,8 +2,8 @@ package service;
 
 import entity.User;
 import entity.UserCredentials;
-import org.apache.commons.codec.digest.DigestUtils;
 import repository.UserRepository;
+import repositoryfordb.DbUserRepository;
 
 import java.sql.SQLException;
 
@@ -12,6 +12,7 @@ import java.sql.SQLException;
  */
 public class UserAuthenticationService {
     private final UserRepository userRepository;
+    private DbUserRepository dbUserRepository = new DbUserRepository();
 
     public UserAuthenticationService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -20,16 +21,13 @@ public class UserAuthenticationService {
     public boolean authenticate(UserCredentials credentials) throws SQLException {
         User user = userRepository.findByLogin(credentials.getLogin());
         if (user != null) {
-            String hashedPassword = hashPassword(credentials.getPassword());
-            return user.getPassword().equals(hashedPassword);
+            return user.getPassword().equals(credentials.getPassword());
         } else {
             return false;
         }
     }
 
-    private String hashPassword(String password) {
-        // В этом методе можно использовать различные алгоритмы шифрования, например, BCrypt или SHA-256.
-        // Здесь мы просто используем функцию md5(), как в примере с PostgreSQL.
-        return DigestUtils.md5Hex(password);
+    public boolean dbAuthenticate(UserCredentials credentials) {
+        return dbUserRepository.authenticateUser(credentials.getLogin(), credentials.getPassword());
     }
 }
