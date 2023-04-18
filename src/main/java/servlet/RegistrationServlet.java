@@ -1,6 +1,6 @@
 package servlet;
 
-import entity.User;
+import entity.UserCredentials;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.UUID;
 
 /**
  * Регистрация
@@ -36,15 +34,14 @@ public class RegistrationServlet extends HttpServlet {
             HttpServletRequest request, HttpServletResponse response
     ) {
         response.setContentType("text/plain");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirm");
+        UserCredentials userCredentials = new UserCredentials(
+                request.getParameter("username"),
+                request.getParameter("password"),
+                request.getParameter("confirm")
+        );
         String email = request.getParameter("email");
         try {
-            if (userService.isRegistration(username, password, confirmPassword, email)) {
-                User user = new User(UUID.randomUUID(), username, password, email);
-                userService.createUser(user);
-            } else {
+            if (!userService.isNewUserCreated(userCredentials, email)) {
                 response.setStatus(204);
                 response.getWriter().println("Error");
             }

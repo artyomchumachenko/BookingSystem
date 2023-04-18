@@ -1,6 +1,7 @@
 package repositoryfordb;
 
 import config.Database;
+import entity.UserCredentials;
 
 import java.sql.*;
 import java.util.UUID;
@@ -36,8 +37,8 @@ public class DbUserRepository {
         return isAuthenticated;
     }
 
-    public boolean isRegistrationUserAccept(
-            String login, String password, String confirmPassword, String email
+    public boolean isNewUserCreated(
+            UserCredentials userCredentials, String email
     ) {
         boolean result = false;
         try (Connection conn = database.connect();
@@ -45,9 +46,9 @@ public class DbUserRepository {
 
             // Задаем параметры функции
             stmt.setObject(2, UUID.randomUUID()); // p_user_id
-            stmt.setString(3, login); // p_login
-            stmt.setString(4, password); // p_password
-            stmt.setString(5, confirmPassword); // p_confirm_password
+            stmt.setString(3, userCredentials.getLogin()); // p_login
+            stmt.setString(4, userCredentials.getPassword()); // p_password
+            stmt.setString(5, userCredentials.getConfirm()); // p_confirm_password
             stmt.setString(6, email); // p_email
 
             // Регистрируем выходной параметр (возвращает boolean)

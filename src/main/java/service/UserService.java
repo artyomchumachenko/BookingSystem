@@ -26,22 +26,20 @@ public class UserService {
         return null;
     }
 
-    public void createUser(User user) {
-        userRepository.addUser(user);
-    }
-
-    public boolean isRegistration(
-            String login,
-            String passwordToRegister,
-            String confirmPassword,
+    public boolean isNewUserCreated(
+            UserCredentials userCredentials,
             String email
     ) {
-        return dbUserRepository.isRegistrationUserAccept(
-                login, passwordToRegister, confirmPassword, email
+        return dbUserRepository.isNewUserCreated(
+                userCredentials, email
         );
     }
 
     public User findByLogin(String login) throws SQLException {
         return userRepository.findByLogin(login);
+    }
+
+    public String getRoleById(UUID roleId) {
+        return userRepository.getRoleNameByRoleId(roleId);
     }
 }

@@ -10,10 +10,18 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class UserCredentials {
     private String login;
     private String password;
+    private String confirm;
+
+    public UserCredentials(String login, String password, String confirm) {
+        this.login = login;
+        this.password = hashPassword(password);
+        this.confirm = hashPassword(confirm);
+    }
 
     public UserCredentials(String login, String password) {
         this.login = login;
         this.password = hashPassword(password);
+        this.confirm = hashPassword(password);
     }
 
     private String hashPassword(String password) {
