@@ -1,6 +1,7 @@
 package repository;
 
 import config.Database;
+import entity.Role;
 import entity.User;
 
 import java.sql.Connection;
@@ -38,20 +39,23 @@ public class UserRepository {
         }
     }
 
-    public String getRoleNameByRoleId(UUID roleId) {
-        String roleName = null;
-        PreparedStatement statement = null;
-        try {
-            statement = database.connect().prepareStatement("SELECT name FROM roles WHERE role_id = ?");
-            statement.setObject(1, roleId);
-            ResultSet result = statement.executeQuery();
-            if (result.next()) {
-                roleName = result.getString("name");
+    public Role getRoleByRoleId(UUID roleId) {
+        String sql = "SELECT role_id, name FROM roles WHERE role_id = ?";
+        try (Connection conn = database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setObject(1, roleId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Role role = new Role();
+                role.setRoleId(rs.getObject("role_id", UUID.class));
+                role.setName(rs.getString("name"));
+                return role;
+            } else {
+                return null;
             }
-            statement.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException ex) {
+            // Обработка ошибок
+            throw new RuntimeException(ex);
         }
-        return roleName;
     }
 }

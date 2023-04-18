@@ -1,5 +1,6 @@
 package service;
 
+import entity.Role;
 import entity.User;
 import entity.UserCredentials;
 import repository.UserRepository;
@@ -39,7 +40,7 @@ public class UserService {
         return userRepository.findByLogin(login);
     }
 
-    public String getRoleById(UUID roleId) {
-        return userRepository.getRoleNameByRoleId(roleId);
+    public Role getRoleById(UUID roleId) {
+        return userRepository.getRoleByRoleId(roleId);
     }
 }

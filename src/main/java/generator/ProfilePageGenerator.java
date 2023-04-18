@@ -21,7 +21,7 @@ public class ProfilePageGenerator {
         pageTemplate = pageTemplate.replace("<!--            John Doe-->", user.getLogin());
         pageTemplate = pageTemplate.replace("<!--            john.doe@gmail.com-->", user.getEmail());
         pageTemplate = pageTemplate.replace("<!--            +1 (555) 123-4567-->", user.getPassword());
-        pageTemplate = pageTemplate.replace("<!--            Роль-->", userService.getRoleById(user.getRoleId()));
+        pageTemplate = pageTemplate.replace("<!--            Роль-->", userService.getRoleById(user.getRoleId()).getName());
         return pageTemplate;
     }
 }
