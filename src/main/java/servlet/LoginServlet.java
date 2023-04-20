@@ -34,11 +34,11 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        tryToAuth(username, password, request, response);
+        tryToAuth(username, password, response);
     }
 
     private void tryToAuth(String username, String password,
-                           HttpServletRequest request, HttpServletResponse response) throws IOException {
+                           HttpServletResponse response) throws IOException {
         // Здесь можно добавить код для проверки логина и пароля
         User user = null;
         try {
@@ -48,9 +48,17 @@ public class LoginServlet extends HttpServlet {
         }
         response.setContentType("text/plain");
         if (user != null) {
-            Cookie cookie = new Cookie("username", username);
-            cookie.setMaxAge(86400); // Установка времени жизни в 24 часа
-            response.addCookie(cookie); // Добавление Cookie в ответ сервера
+            try {
+                User currUser = userService.findByLogin(username);
+                Cookie cookieUsername = new Cookie("username", currUser.getLogin());
+                Cookie cookieRoleName = new Cookie("role", userService.getRoleById(currUser.getRoleId()).getName());
+                cookieUsername.setMaxAge(86400); // Установка времени жизни в 24 часа
+                cookieRoleName.setMaxAge(86400); // Установка времени жизни в 24 часа
+                response.addCookie(cookieUsername); // Добавление Cookie в ответ сервера
+                response.addCookie(cookieRoleName); // Добавление Cookie в ответ сервера
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
 
             // Отправляем ответ
             response.getWriter().println("" + username + " enter to system");

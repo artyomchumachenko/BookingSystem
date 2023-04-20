@@ -22,6 +22,10 @@ public class ProfilePageGenerator {
         pageTemplate = pageTemplate.replace("<!--            john.doe@gmail.com-->", user.getEmail());
         pageTemplate = pageTemplate.replace("<!--            +1 (555) 123-4567-->", user.getPassword());
         pageTemplate = pageTemplate.replace("<!--            Роль-->", userService.getRoleById(user.getRoleId()).getName());
+        if (userService.getRoleById(user.getRoleId()).getName().equals("HOTEL")) {
+            pageTemplate = pageTemplate.replace("<!--        Кнопка \"Мои отели\"-->",
+                                                "        <p>\n<button class=\"my-hotels\" id=\"my-hotels\" >Мои отели</button>\n</p>");
+        }
         return pageTemplate;
     }
 }

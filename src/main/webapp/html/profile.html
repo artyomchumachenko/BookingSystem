@@ -40,25 +40,6 @@
             width: 150px;
         }
 
-        .profile-info {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .profile-info p {
-            display: inline-block;
-            margin: 0;
-            padding: 0;
-            vertical-align: top;
-        }
-
-        .profile-info label {
-            display: block;
-            font-weight: normal;
-            margin-bottom: 5px;
-            width: auto;
-        }
-
         .logout-button {
             background-color: #ff0000;
             border: none;
@@ -91,6 +72,42 @@
         .home-button:hover {
             background-color: #930000;
         }
+
+        .profile-info {
+            margin-bottom: 20px;
+            text-align: left;
+            display: inline-block; /* добавляем */
+        }
+
+        .profile-info p {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            vertical-align: top;
+        }
+
+        .profile-info label {
+            display: block;
+            font-weight: normal;
+            margin-bottom: 5px;
+            width: auto;
+        }
+
+        .my-hotels {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px 20px;
+            display: inline-block; /* добавляем */
+            vertical-align: top; /* добавляем */
+        }
+
+        .my-hotels:hover {
+            background-color: #3e8e41;
+        }
+
     </style>
 </head>
 <body>
@@ -112,7 +129,10 @@
         <p><label>Роль:</label>
 <!--            Роль-->
         </p>
+<!--        Кнопка "Мои отели"-->
+<!--        <p><button class="my-hotels" id="my-hotels" >Мои отели</button></p>-->
     </div>
+    <br>
     <button class="logout-button" id="logout-button" >Выйти из личного кабинета</button>
 </div>
 <script>
@@ -133,6 +153,15 @@
 
     // Добавляем обработчик события клика
     homeButton.addEventListener("click", function () {
+        // Переходим на главную страницу
+        window.location.href = "/BookingSystem_war";
+    });
+
+    // Получаем кнопку "На главную"
+    var hotelList = document.getElementById("my-hotels");
+
+    // Добавляем обработчик события клика
+    hotelList.addEventListener("click", function () {
         // Переходим на главную страницу
         window.location.href = "/BookingSystem_war";
     });

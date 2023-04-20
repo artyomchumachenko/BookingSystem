@@ -18,4 +18,18 @@ public class CookieHelper {
         }
         return usernameFromCookie;
     }
+
+    public String getUserRoleNameFromCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        String role = null;
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    role = cookie.getValue();
+                    System.out.println(role);
+                }
+            }
+        }
+        return role;
+    }
 }
