@@ -1,10 +1,10 @@
-package service;
+package service.user;
 
-import entity.Role;
-import entity.User;
-import entity.UserCredentials;
+import entity.user.Role;
+import entity.user.User;
+import entity.user.UserCredentials;
 import repository.UserRepository;
-import repositoryfordb.DbUserRepository;
+import repositoryfordb.user.DbUserRepository;
 
 import java.sql.SQLException;
 import java.util.UUID;

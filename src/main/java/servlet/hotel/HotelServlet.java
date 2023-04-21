@@ -1,9 +1,9 @@
-package servlet;
+package servlet.hotel;
 
 import config.CookieHelper;
-import entity.Hotel;
-import generator.HotelPageGenerator;
-import service.HotelService;
+import entity.hotel.Hotel;
+import generator.hotel.HotelPageGenerator;
+import service.hotel.HotelService;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +32,7 @@ public class HotelServlet extends HttpServlet {
         CookieHelper cookieHelper = new CookieHelper();
 
         List<Hotel> hotels = hotelService.getAllHotel();
-        String usernameFromCookie = cookieHelper.getUsernameFromCookie(request);
+        String usernameFromCookie = cookieHelper.getTargetFromCookie(request, "username");
 
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");

@@ -1,6 +1,6 @@
-package generator;
+package generator.hotel;
 
-import entity.Hotel;
+import entity.hotel.Hotel;
 
 import java.io.IOException;
 import java.nio.file.Files;

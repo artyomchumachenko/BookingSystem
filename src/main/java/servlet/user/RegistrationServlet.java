@@ -1,7 +1,7 @@
-package servlet;
+package servlet.user;
 
-import entity.UserCredentials;
-import service.UserService;
+import entity.user.UserCredentials;
+import service.user.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

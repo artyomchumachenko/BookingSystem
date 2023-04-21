@@ -5,31 +5,17 @@ import javax.servlet.http.HttpServletRequest;
 
 public class CookieHelper {
 
-    public String getUsernameFromCookie(HttpServletRequest request) {
+    public String getTargetFromCookie(HttpServletRequest request, String targetCookie) {
         Cookie[] cookies = request.getCookies();
-        String usernameFromCookie = null;
+        String target = null;
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("username")) {
-                    usernameFromCookie = cookie.getValue();
-                    System.out.println(usernameFromCookie);
+                if (cookie.getName().equals(targetCookie)) {
+                    target = cookie.getValue();
+                    System.out.println(target);
                 }
             }
         }
-        return usernameFromCookie;
-    }
-
-    public String getUserRoleNameFromCookie(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        String role = null;
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("username")) {
-                    role = cookie.getValue();
-                    System.out.println(role);
-                }
-            }
-        }
-        return role;
+        return target;
     }
 }

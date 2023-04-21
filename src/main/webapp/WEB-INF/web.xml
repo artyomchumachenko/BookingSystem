@@ -4,13 +4,4 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-
-<!--  <servlet>-->
-<!--    <servlet-name>InfoServlet</servlet-name>-->
-<!--    <servlet-class>servlet.AboutUsServlet</servlet-class>-->
-<!--  </servlet>-->
-<!--  <servlet-mapping>-->
-<!--    <servlet-name>InfoServlet</servlet-name>-->
-<!--    <url-pattern>/info</url-pattern>-->
-<!--  </servlet-mapping>-->
 </web-app>

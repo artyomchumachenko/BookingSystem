@@ -1,8 +1,8 @@
 package repository;
 
 import config.Database;
-import entity.Role;
-import entity.User;
+import entity.user.Role;
+import entity.user.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

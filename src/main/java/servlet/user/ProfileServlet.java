@@ -1,9 +1,9 @@
-package servlet;
+package servlet.user;
 
 import config.CookieHelper;
-import entity.User;
-import generator.ProfilePageGenerator;
-import service.UserService;
+import entity.user.User;
+import generator.user.ProfilePageGenerator;
+import service.user.UserService;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,9 +17,6 @@ import java.sql.SQLException;
  */
 @WebServlet("/profile")
 public class ProfileServlet extends HttpServlet {
-    // TODO Доделать возможность выхода из профиля и очистки Cookie
-    // Дальше по плану, описанному в файле Notepad
-
     private final UserService userService;
 
     public ProfileServlet() {
@@ -30,7 +27,7 @@ public class ProfileServlet extends HttpServlet {
         ProfilePageGenerator profilePageGenerator = new ProfilePageGenerator();
         CookieHelper cookieHelper = new CookieHelper();
 
-        String usernameFromCookie = cookieHelper.getUsernameFromCookie(request);
+        String usernameFromCookie = cookieHelper.getTargetFromCookie(request, "username");
         User user = tryToFindUserByLogin(usernameFromCookie);
 
         response.setContentType("text/html");

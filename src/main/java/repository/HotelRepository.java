@@ -1,7 +1,7 @@
 package repository;
 
 import config.Database;
-import entity.Hotel;
+import entity.hotel.Hotel;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

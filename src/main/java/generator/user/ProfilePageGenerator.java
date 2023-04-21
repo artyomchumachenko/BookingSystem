@@ -1,7 +1,7 @@
-package generator;
+package generator.user;
 
-import entity.User;
-import service.UserService;
+import entity.user.User;
+import service.user.UserService;
 
 import java.io.IOException;
 import java.nio.file.Files;

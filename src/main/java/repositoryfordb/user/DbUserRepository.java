@@ -1,7 +1,7 @@
-package repositoryfordb;
+package repositoryfordb.user;
 
 import config.Database;
-import entity.UserCredentials;
+import entity.user.UserCredentials;
 
 import java.sql.*;
 import java.util.UUID;

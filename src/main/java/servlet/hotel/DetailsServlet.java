@@ -1,8 +1,8 @@
-package servlet;
+package servlet.hotel;
 
-import entity.Hotel;
-import generator.HotelDetailsPageGenerator;
-import service.HotelService;
+import entity.hotel.Hotel;
+import generator.hotel.HotelDetailsPageGenerator;
+import service.hotel.HotelService;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
