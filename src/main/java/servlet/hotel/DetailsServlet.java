@@ -26,11 +26,10 @@ public class DetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HotelDetailsPageGenerator hotelDetailsPageGenerator = new HotelDetailsPageGenerator();
 
-        List<Hotel> hotels = hotelService.getAllHotel();
-        String buttonId = request.getParameter("buttonId");
+        String hotelId = request.getParameter("hotelId");
 
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().print(hotelDetailsPageGenerator.getHotelDetailsPage(hotels, buttonId));
+        response.getWriter().print(hotelDetailsPageGenerator.getHotelDetailsPage(hotelId));
     }
 }

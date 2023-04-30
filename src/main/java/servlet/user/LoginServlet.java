@@ -51,10 +51,13 @@ public class LoginServlet extends HttpServlet {
             try {
                 User currUser = userService.findByLogin(username);
                 Cookie cookieUsername = new Cookie("username", currUser.getLogin());
+                Cookie cookieUserId = new Cookie("user_uuid", currUser.getUserId().toString());
                 Cookie cookieRoleName = new Cookie("role", userService.getRoleById(currUser.getRoleId()).getName());
                 cookieUsername.setMaxAge(86400); // Установка времени жизни в 24 часа
+                cookieUserId.setMaxAge(86400); // Установка времени жизни в 24 часа
                 cookieRoleName.setMaxAge(86400); // Установка времени жизни в 24 часа
                 response.addCookie(cookieUsername); // Добавление Cookie в ответ сервера
+                response.addCookie(cookieUserId); // Добавление Cookie в ответ сервера
                 response.addCookie(cookieRoleName); // Добавление Cookie в ответ сервера
             } catch (SQLException e) {
                 throw new RuntimeException(e);

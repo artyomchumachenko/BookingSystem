@@ -189,13 +189,12 @@
 </head>
 <body>
 <form id="detailsForm" action="/BookingSystem_war/details" method="get">
-    <input type="hidden" name="buttonId" id="buttonIdInput">
+    <input type="hidden" name="hotelId" id="hotelIdInput">
 </form>
 <script>
-    function handleButtonClick(buttonId) {
-        // здесь можно использовать buttonId для определения какая кнопка была нажата
-        console.log("Нажата кнопка с id:", buttonId);
-        document.getElementById("buttonIdInput").value = buttonId;
+    function handleButtonClick(hotelId) {
+        console.log("Нажата кнопка с hotelId: ", hotelId);
+        document.getElementById("hotelIdInput").value = hotelId;
         document.getElementById("detailsForm").submit();
     }
 </script>

@@ -2,7 +2,7 @@ package servlet.hotel;
 
 import config.CookieHelper;
 import entity.hotel.Hotel;
-import generator.hotel.HotelPageGenerator;
+import generator.hotel.StartPageGenerator;
 import service.hotel.HotelService;
 
 import javax.servlet.annotation.WebServlet;
@@ -19,24 +19,24 @@ import java.util.List;
  * Главная страница сайта
  */
 @WebServlet("")
-public class HotelServlet extends HttpServlet {
+public class StartPageServlet extends HttpServlet {
 
     private final HotelService hotelService;
 
-    public HotelServlet() {
+    public StartPageServlet() {
         this.hotelService = new HotelService();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HotelPageGenerator hotelPageGenerator = new HotelPageGenerator();
         CookieHelper cookieHelper = new CookieHelper();
+        StartPageGenerator pageGenerator = new StartPageGenerator();
 
         List<Hotel> hotels = hotelService.getAllHotel();
         String usernameFromCookie = cookieHelper.getTargetFromCookie(request, "username");
 
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().print(hotelPageGenerator.getMainPage(
+        response.getWriter().print(pageGenerator.getPage(
                 hotels,
                 usernameFromCookie
         ));

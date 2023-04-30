@@ -33,7 +33,6 @@ public class ProfileServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().print(profilePageGenerator.getProfilePage(user));
-//        request.getRequestDispatcher("html/profile.html").forward(request, response);
     }
 
     private User tryToFindUserByLogin(String username) {

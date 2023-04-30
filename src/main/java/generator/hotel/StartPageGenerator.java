@@ -11,12 +11,12 @@ import java.util.List;
  * Класс для динамической генерации главной страницы сайта
  * TODO перенести генерацию страницы "Подробнее об отеле" в другой класс
  */
-public class HotelPageGenerator {
+public class StartPageGenerator {
 
     /**
      * Генерации главной страницы сайта
      */
-    public String getMainPage(List<Hotel> hotels, String usernameFromCookie) throws IOException {
+    public String getPage(List<Hotel> hotels, String usernameFromCookie) throws IOException {
         String mainPageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/main-page.html"));
         mainPageTemplate = hotelButtonsAllGenerate(hotels, mainPageTemplate);
         mainPageTemplate = profileButtonGenerate(usernameFromCookie, mainPageTemplate);
@@ -25,7 +25,6 @@ public class HotelPageGenerator {
 
     private String hotelButtonsAllGenerate(List<Hotel> hotels, String pageTemplate) {
         StringBuilder hotelListHtml = new StringBuilder();
-        int buttonId = 2;
         for (Hotel hotel : hotels) {
             hotelListHtml
                     .append("<li>")
@@ -34,11 +33,10 @@ public class HotelPageGenerator {
                     .append(hotel.getCity()).append(";\t")
                     .append(hotel.getAddress()).append(";\t")
                     .append(hotel.getPhoneNumber()).append("\t")
-                    .append("<button id=\"buttonId")
-                    .append(buttonId)
+                    .append("<button id=\"")
+                    .append(hotel.getHotelId())
                     .append("\" onclick=\"handleButtonClick(this.id)\">Подробнее</button>")
                     .append("</li>");
-            buttonId++;
         }
         pageTemplate = pageTemplate.replace("<!-- HOTEL_LIST -->", hotelListHtml.toString());
         return pageTemplate;

@@ -27,7 +27,7 @@
         li {
             background-color: #f4f4f4;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
             margin: 10px;
             padding: 20px;
@@ -67,9 +67,7 @@
 
     // Пример списка отелей
     var hotels = [
-        { name: "Отель 1" },
-        { name: "Отель 2" },
-        { name: "Отель 3" }
+        // { name: "Отель 1" },
     ];
 
     // Получаем элемент списка отелей
@@ -85,6 +83,9 @@
         hotelName.textContent = hotel.name;
 
         var viewButton = document.createElement("button");
+        viewButton.addEventListener("click", function() {
+            window.location.href = "/BookingSystem_war/details";
+        });
         viewButton.textContent = "Просмотр";
 
         var editButton = document.createElement("button");

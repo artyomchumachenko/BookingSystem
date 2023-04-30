@@ -28,4 +28,8 @@ public class Hotel {
         this.profileIcon = profileIcon;
         this.phoneNumber = phoneNumber;
     }
+
+    public Hotel() {
+
+    }
 }
