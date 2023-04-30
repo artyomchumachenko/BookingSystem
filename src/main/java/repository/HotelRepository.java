@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Класс для отправки SQL запросов в базу данных для таблицы @hotels
+ * Класс отправки SQL запросов в таблицу @hotels
  */
 public class HotelRepository {
     private final Database database;
@@ -18,7 +18,7 @@ public class HotelRepository {
         this.database = new Database();
     }
 
-    public List<Hotel> getAllHotel() {
+    public List<Hotel> findAllHotels() {
         List<Hotel> hotels = new ArrayList<>();
         try (Connection connection = database.connect();
              Statement stmt = connection.createStatement()) {
@@ -45,7 +45,7 @@ public class HotelRepository {
         return hotels;
     }
 
-    public List<Hotel> findMyHotelsByIds(List<UUID> hotelIds) {
+    public List<Hotel> findHotelsByIds(List<UUID> hotelIds) {
         try (Connection connection = database.connect()) {
 
             // создаем запрос, который выберет информацию об отелях с заданными идентификаторами

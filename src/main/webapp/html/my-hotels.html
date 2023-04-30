@@ -67,7 +67,7 @@
 
     // Пример списка отелей
     var hotels = [
-        // { name: "Отель 1" },
+        // Объекты отелей
     ];
 
     // Получаем элемент списка отелей
@@ -83,8 +83,9 @@
         hotelName.textContent = hotel.name;
 
         var viewButton = document.createElement("button");
+        viewButton.id = hotel.id;
         viewButton.addEventListener("click", function() {
-            window.location.href = "/BookingSystem_war/details";
+            window.location.href = "/BookingSystem_war/details?hotelId=" + this.id;
         });
         viewButton.textContent = "Просмотр";
 

@@ -39,7 +39,7 @@ public class UserRepository {
         }
     }
 
-    public Role getRoleByRoleId(UUID roleId) {
+    public Role findRoleByRoleId(UUID roleId) {
         String sql = "SELECT role_id, name FROM roles WHERE role_id = ?";
         try (Connection conn = database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

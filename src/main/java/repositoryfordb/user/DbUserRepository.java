@@ -13,7 +13,7 @@ public class DbUserRepository {
         this.database = new Database();
     }
 
-    public boolean authenticateUser(String login, String pass) {
+    public boolean authenticateUserSqlFunction(String login, String pass) {
         boolean isAuthenticated = false;
         try (Connection conn = database.connect();
              CallableStatement stmt = conn.prepareCall("{? = call authenticate_user(?, ?)}")) {
@@ -37,7 +37,7 @@ public class DbUserRepository {
         return isAuthenticated;
     }
 
-    public boolean isNewUserCreated(
+    public boolean createUserSqlFunction(
             UserCredentials userCredentials, String email
     ) {
         boolean result = false;

@@ -38,7 +38,7 @@ public class ProfileServlet extends HttpServlet {
     private User tryToFindUserByLogin(String username) {
         User user;
         try {
-            user = userService.findByLogin(username);
+            user = userService.getUserByLogin(username);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -31,8 +31,6 @@ public class MyHotelsServlet extends HttpServlet {
         MyHotelsPageGenerator pageGenerator = new MyHotelsPageGenerator();
 
         // Получить UUID пользователя
-        System.out.println(cookieHelper.getTargetFromCookie(request, "user_uuid"));
-        System.out.println(cookieHelper.getTargetFromCookie(request, "username"));
         UUID userId = UUID.fromString(cookieHelper.getTargetFromCookie(request, "user_uuid"));
         // Получить из таблицы hotel_to_user все hotel_id соответствующие user_id (UUID)
         List<UUID> hotelIds = hotelService.getMyHotelsIdsByUserId(userId);

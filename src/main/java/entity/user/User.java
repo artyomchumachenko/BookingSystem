@@ -17,6 +17,8 @@ public class User {
     private String email;
     private UUID roleId;
 
+    public User() {}
+
     public User(UUID userId, String login, String password, String email, UUID roleId) {
         this.userId = userId;
         this.login = login;

@@ -8,13 +8,12 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * Класс для динамической генерации главной страницы сайта
- * TODO перенести генерацию страницы "Подробнее об отеле" в другой класс
+ * Класс динамической генерации main-page.html
  */
 public class StartPageGenerator {
 
     /**
-     * Генерации главной страницы сайта
+     * Генерация главной страницы сайта
      */
     public String getPage(List<Hotel> hotels, String usernameFromCookie) throws IOException {
         String mainPageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/main-page.html"));

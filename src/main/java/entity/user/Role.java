@@ -11,12 +11,10 @@ public class Role {
     private UUID roleId;
     private String name;
 
+    public Role() {}
+
     public Role(UUID roleId, String name) {
         this.roleId = roleId;
         this.name = name;
-    }
-
-    public Role() {
-
     }
 }

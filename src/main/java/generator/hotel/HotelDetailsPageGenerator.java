@@ -8,7 +8,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+/**
+ * Класс динамической генерации hotel-details.html
+ */
 public class HotelDetailsPageGenerator {
+
     /**
      * Подробности об отеле
      * TODO доделать
@@ -22,6 +26,9 @@ public class HotelDetailsPageGenerator {
         pageTemplate = pageTemplate.replace("<!--        Название отеля-->", hotel.getCountry());
         pageTemplate = pageTemplate.replace("<!--        Здесь вы можете добавить описание отеля.-->", hotel.getDescription());
         pageTemplate = pageTemplate.replace("<!--        Здесь вы можете добавить информацию о ценах и бронировании.-->", hotel.getCountry());
+
+        // TODO добавить список платных и бесплатных удобств предлагаемых отелем
+
         return pageTemplate.replace("<!--Ссылка на фото отеля-->", hotel.getProfileIcon());
     }
 }

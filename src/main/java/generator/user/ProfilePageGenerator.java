@@ -7,9 +7,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * Класс динамической генерации profile.html
+ */
 public class ProfilePageGenerator {
-
-    private UserService userService = new UserService();
 
     public String getProfilePage(User user) throws IOException {
         String pageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/profile.html"));
@@ -18,6 +19,7 @@ public class ProfilePageGenerator {
     }
 
     private String profilePrivateInfoGenerate(String pageTemplate, User user) {
+        UserService userService = new UserService();
         pageTemplate = pageTemplate.replace("<!--            John Doe-->", user.getLogin());
         pageTemplate = pageTemplate.replace("<!--            john.doe@gmail.com-->", user.getEmail());
         pageTemplate = pageTemplate.replace("<!--            +1 (555) 123-4567-->", user.getPassword());

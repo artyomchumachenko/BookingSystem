@@ -41,7 +41,7 @@ public class RegistrationServlet extends HttpServlet {
         );
         String email = request.getParameter("email");
         try {
-            if (!userService.isNewUserCreated(userCredentials, email)) {
+            if (!userService.isUserCreated(userCredentials, email)) {
                 response.setStatus(204);
                 response.getWriter().println("Error");
             }

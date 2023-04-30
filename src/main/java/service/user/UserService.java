@@ -27,20 +27,20 @@ public class UserService {
         return null;
     }
 
-    public boolean isNewUserCreated(
+    public boolean isUserCreated(
             UserCredentials userCredentials,
             String email
     ) {
-        return dbUserRepository.isNewUserCreated(
+        return dbUserRepository.createUserSqlFunction(
                 userCredentials, email
         );
     }
 
-    public User findByLogin(String login) throws SQLException {
+    public User getUserByLogin(String login) throws SQLException {
         return userRepository.findByLogin(login);
     }
 
     public Role getRoleById(UUID roleId) {
-        return userRepository.getRoleByRoleId(roleId);
+        return userRepository.findRoleByRoleId(roleId);
     }
 }

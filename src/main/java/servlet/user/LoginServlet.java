@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/plain");
         if (user != null) {
             try {
-                User currUser = userService.findByLogin(username);
+                User currUser = userService.getUserByLogin(username);
                 Cookie cookieUsername = new Cookie("username", currUser.getLogin());
                 Cookie cookieUserId = new Cookie("user_uuid", currUser.getUserId().toString());
                 Cookie cookieRoleName = new Cookie("role", userService.getRoleById(currUser.getRoleId()).getName());

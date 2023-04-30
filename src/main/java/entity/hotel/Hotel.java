@@ -18,6 +18,8 @@ public class Hotel {
     private String profileIcon;
     private String phoneNumber;
 
+    public Hotel() {}
+
     public Hotel(UUID hotelId, String name, String country, String city, String address, String description, String profileIcon, String phoneNumber) {
         this.hotelId = hotelId;
         this.name = name;
@@ -27,9 +29,5 @@ public class Hotel {
         this.description = description;
         this.profileIcon = profileIcon;
         this.phoneNumber = phoneNumber;
-    }
-
-    public Hotel() {
-
     }
 }

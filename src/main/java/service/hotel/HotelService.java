@@ -16,7 +16,7 @@ public class HotelService {
     }
 
     public List<Hotel> getAllHotel() {
-        return hotelRepository.getAllHotel();
+        return hotelRepository.findAllHotels();
     }
 
     public List<UUID> getMyHotelsIdsByUserId(UUID userId) {
@@ -25,6 +25,6 @@ public class HotelService {
     }
 
     public List<Hotel> getMyHotelsByIds(List<UUID> uuids) {
-        return hotelRepository.findMyHotelsByIds(uuids);
+        return hotelRepository.findHotelsByIds(uuids);
     }
 }
