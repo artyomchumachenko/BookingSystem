@@ -1,11 +1,13 @@
 package generator.hotel;
 
 import entity.hotel.Hotel;
+import repository.HotelFacilitiesQuery;
 import repository.HotelRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -27,8 +29,27 @@ public class HotelDetailsPageGenerator {
         pageTemplate = pageTemplate.replace("<!--        Здесь вы можете добавить описание отеля.-->", hotel.getDescription());
         pageTemplate = pageTemplate.replace("<!--        Здесь вы можете добавить информацию о ценах и бронировании.-->", hotel.getCountry());
 
-        // TODO добавить список платных и бесплатных удобств предлагаемых отелем
+        pageTemplate = pageTemplate.replace("// Удобства", getFacilities(hotel.getHotelId()));
 
         return pageTemplate.replace("<!--Ссылка на фото отеля-->", hotel.getProfileIcon());
+    }
+
+    private String getFacilities(UUID hotelId) {
+        HotelFacilitiesQuery hfq = new HotelFacilitiesQuery();
+        StringBuilder sb = new StringBuilder();
+
+        Map<String, Boolean> facilities = hfq.getFacilitiesByHotelId(hotelId);
+
+        for (String facilityKey : facilities.keySet()) {
+            sb.append("<tr>\n");
+            sb.append("<td>").append(facilityKey).append("</td>\n");
+            sb.append("<td>");
+            if (facilities.get(facilityKey)) sb.append("Да");
+            else                             sb.append("Нет");
+            sb.append("</td>\n");
+            sb.append("</tr>\n");
+        }
+
+        return sb.toString();
     }
 }
