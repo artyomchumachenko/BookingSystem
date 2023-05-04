@@ -4,7 +4,6 @@ import entity.hotel.Hotel;
 import repository.HotelRepository;
 import repository.HotelToUserQuery;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 

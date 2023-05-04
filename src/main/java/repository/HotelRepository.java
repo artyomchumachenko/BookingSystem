@@ -1,6 +1,6 @@
 package repository;
 
-import config.Database;
+import config.ConnectionPool;
 import entity.hotel.Hotel;
 
 import java.sql.*;
@@ -12,30 +12,24 @@ import java.util.UUID;
  * Класс отправки SQL запросов в таблицу @hotels
  */
 public class HotelRepository {
-    private final Database database;
-
-    public HotelRepository() {
-        this.database = new Database();
-    }
 
     public List<Hotel> findAllHotels() {
         List<Hotel> hotels = new ArrayList<>();
-        try (Connection connection = database.connect();
+        try (Connection connection = ConnectionPool.getDataSource().getConnection();
              Statement stmt = connection.createStatement()) {
             String sql = "SELECT * FROM hotels";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 UUID hotelId = UUID.fromString(rs.getString("hotel_id"));
-                String country = rs.getString("country");
-                String city = rs.getString("city");
+                UUID cityId = UUID.fromString(rs.getString("city_id"));
                 String description = rs.getString("description");
                 String profileIcon = rs.getString("profile_icon");
                 String phoneNumber = rs.getString("phone_number");
                 String hotelName = rs.getString("hotel_name");
                 String address = rs.getString("address");
 
-                hotels.add(new Hotel(hotelId, hotelName, country, city, address, description, profileIcon, phoneNumber));
+                hotels.add(new Hotel(hotelId, hotelName, address, description, profileIcon, phoneNumber, cityId));
             }
         } catch (SQLException e) {
             // Обрабатываем исключение при работе с базой данных
@@ -46,7 +40,7 @@ public class HotelRepository {
     }
 
     public List<Hotel> findHotelsByIds(List<UUID> hotelIds) {
-        try (Connection connection = database.connect()) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection()) {
 
             // создаем запрос, который выберет информацию об отелях с заданными идентификаторами
             String query = "SELECT * FROM hotels WHERE hotel_id IN (";
@@ -71,15 +65,13 @@ public class HotelRepository {
             List<Hotel> hotels = new ArrayList<>();
             while (resultSet.next()) {
                 UUID hotelId = (UUID) resultSet.getObject("hotel_id");
-                String country = resultSet.getString("country");
-                String city = resultSet.getString("city");
+                UUID cityId = (UUID) resultSet.getObject("city_id");
                 String description = resultSet.getString("description");
                 String profileIcon = resultSet.getString("profile_icon");
                 String phoneNumber = resultSet.getString("phone_number");
                 String hotelName = resultSet.getString("hotel_name");
                 String address = resultSet.getString("address");
-                Hotel hotel = new Hotel(hotelId, hotelName, country, city, address,
-                        description, profileIcon, phoneNumber);
+                Hotel hotel = new Hotel(hotelId, hotelName, address, description, profileIcon, phoneNumber, cityId);
                 hotels.add(hotel);
             }
             return hotels;
@@ -90,22 +82,20 @@ public class HotelRepository {
     }
 
     public Hotel findHotelById(UUID hotelId) {
-        try (Connection connection = database.connect()) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection()) {
             String query = "SELECT * FROM hotels WHERE hotel_id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setObject(1, hotelId);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                String country = resultSet.getString("country");
-                String city = resultSet.getString("city");
+                UUID cityId = UUID.fromString(resultSet.getString("city_id"));
                 String description = resultSet.getString("description");
                 String profileIcon = resultSet.getString("profile_icon");
                 String phoneNumber = resultSet.getString("phone_number");
                 String hotelName = resultSet.getString("hotel_name");
                 String address = resultSet.getString("address");
-                return new Hotel(hotelId, hotelName, country, city, address,
-                        description, profileIcon, phoneNumber);
+                return new Hotel(hotelId, hotelName, address, description, profileIcon, phoneNumber, cityId);
             }
         } catch (SQLException e) {
             System.err.println("Ошибка выполнения запроса: " + e.getMessage());

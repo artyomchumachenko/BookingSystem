@@ -1,21 +1,19 @@
 package repositoryfordb.user;
 
-import config.Database;
+import config.ConnectionPool;
 import entity.user.UserCredentials;
 
-import java.sql.*;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.UUID;
 
 public class DbUserRepository {
-    private final Database database;
-
-    public DbUserRepository() {
-        this.database = new Database();
-    }
 
     public boolean authenticateUserSqlFunction(String login, String pass) {
         boolean isAuthenticated = false;
-        try (Connection conn = database.connect();
+        try (Connection conn = ConnectionPool.getDataSource().getConnection();
              CallableStatement stmt = conn.prepareCall("{? = call authenticate_user(?, ?)}")) {
 
             stmt.registerOutParameter(1, Types.BOOLEAN);
@@ -41,7 +39,7 @@ public class DbUserRepository {
             UserCredentials userCredentials, String email
     ) {
         boolean result = false;
-        try (Connection conn = database.connect();
+        try (Connection conn = ConnectionPool.getDataSource().getConnection();
              CallableStatement stmt = conn.prepareCall("{ ? = call register_user(?, ?, ?, ?, ?) }")) {
 
             // Задаем параметры функции

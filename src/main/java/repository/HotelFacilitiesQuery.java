@@ -1,6 +1,6 @@
 package repository;
 
-import config.Database;
+import config.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,16 +12,10 @@ import java.util.UUID;
 
 public class HotelFacilitiesQuery {
 
-    private final Database database;
-
-    public HotelFacilitiesQuery() {
-        this.database = new Database();
-    }
-
-    public Map<String, Boolean> getFacilitiesByHotelId(UUID hotelId) {
+    public Map<String, Boolean> findFacilitiesByHotelId(UUID hotelId) {
         Map<String, Boolean> facilitiesMap = new HashMap<>();
 
-        try(Connection conn = database.connect();
+        try(Connection conn = ConnectionPool.getDataSource().getConnection();
             PreparedStatement stmt = conn.prepareStatement(
                     "SELECT f.name, hf.payable_service " +
                             "FROM public.hotel_facilities hf " +

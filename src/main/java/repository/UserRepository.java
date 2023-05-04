@@ -1,6 +1,6 @@
 package repository;
 
-import config.Database;
+import config.ConnectionPool;
 import entity.user.Role;
 import entity.user.User;
 
@@ -14,16 +14,10 @@ import java.util.UUID;
  * Класс для отправки SQL запросов в базу данных для таблицы @users
  */
 public class UserRepository {
-    private final Database database;
-
-    public UserRepository() {
-        this.database = new Database();
-    }
 
     public User findByLogin(String login) throws SQLException {
         String sql = "SELECT user_id, login, password, email, role_id FROM users WHERE login = ?";
-        Connection connection = database.connect();
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, login);
             try (ResultSet result = statement.executeQuery()) {
                 if (result.next()) {
@@ -41,7 +35,7 @@ public class UserRepository {
 
     public Role findRoleByRoleId(UUID roleId) {
         String sql = "SELECT role_id, name FROM roles WHERE role_id = ?";
-        try (Connection conn = database.connect();
+        try (Connection conn = ConnectionPool.getDataSource().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setObject(1, roleId);
             ResultSet rs = pstmt.executeQuery();

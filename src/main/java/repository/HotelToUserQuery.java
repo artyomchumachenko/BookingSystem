@@ -1,22 +1,19 @@
 package repository;
 
-import config.Database;
+import config.ConnectionPool;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class HotelToUserQuery {
 
-    private final Database database;
-
-    public HotelToUserQuery() {
-        this.database = new Database();
-    }
-
     public List<UUID> findHotelIdsByUserId(UUID userId) {
-        try (Connection connection = database.connect()) {
+        try (Connection connection = ConnectionPool.getDataSource().getConnection()) {
 
             // создаем запрос, который выберет все hotel_id, соответствующие заданному user_id
             String query = "SELECT DISTINCT hotel_id FROM hotel_to_user WHERE user_id = ?";

@@ -11,23 +11,21 @@ import java.util.UUID;
 public class Hotel {
     private UUID hotelId;
     private String name;
-    private String country;
-    private String city;
     private String address;
     private String description;
     private String profileIcon;
     private String phoneNumber;
+    private UUID cityId;
 
     public Hotel() {}
 
-    public Hotel(UUID hotelId, String name, String country, String city, String address, String description, String profileIcon, String phoneNumber) {
+    public Hotel(UUID hotelId, String name, String address, String description, String profileIcon, String phoneNumber, UUID cityId) {
         this.hotelId = hotelId;
         this.name = name;
-        this.country = country;
-        this.city = city;
         this.address = address;
         this.description = description;
         this.profileIcon = profileIcon;
         this.phoneNumber = phoneNumber;
+        this.cityId = cityId;
     }
 }
