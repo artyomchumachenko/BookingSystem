@@ -24,12 +24,12 @@ public class HotelRepository {
                 UUID hotelId = UUID.fromString(rs.getString("hotel_id"));
                 UUID cityId = UUID.fromString(rs.getString("city_id"));
                 String description = rs.getString("description");
-                String profileIcon = rs.getString("profile_icon");
+                String profileIconUrl = rs.getString("profile_icon_url");
                 String phoneNumber = rs.getString("phone_number");
                 String hotelName = rs.getString("hotel_name");
                 String address = rs.getString("address");
 
-                hotels.add(new Hotel(hotelId, hotelName, address, description, profileIcon, phoneNumber, cityId));
+                hotels.add(new Hotel(hotelId, hotelName, address, description, profileIconUrl, phoneNumber, cityId));
             }
         } catch (SQLException e) {
             // Обрабатываем исключение при работе с базой данных
@@ -67,11 +67,11 @@ public class HotelRepository {
                 UUID hotelId = (UUID) resultSet.getObject("hotel_id");
                 UUID cityId = (UUID) resultSet.getObject("city_id");
                 String description = resultSet.getString("description");
-                String profileIcon = resultSet.getString("profile_icon");
+                String profileIconUrl = resultSet.getString("profile_icon_url");
                 String phoneNumber = resultSet.getString("phone_number");
                 String hotelName = resultSet.getString("hotel_name");
                 String address = resultSet.getString("address");
-                Hotel hotel = new Hotel(hotelId, hotelName, address, description, profileIcon, phoneNumber, cityId);
+                Hotel hotel = new Hotel(hotelId, hotelName, address, description, profileIconUrl, phoneNumber, cityId);
                 hotels.add(hotel);
             }
             return hotels;
@@ -91,11 +91,11 @@ public class HotelRepository {
             if (resultSet.next()) {
                 UUID cityId = UUID.fromString(resultSet.getString("city_id"));
                 String description = resultSet.getString("description");
-                String profileIcon = resultSet.getString("profile_icon");
+                String profileIconUrl = resultSet.getString("profile_icon_url");
                 String phoneNumber = resultSet.getString("phone_number");
                 String hotelName = resultSet.getString("hotel_name");
                 String address = resultSet.getString("address");
-                return new Hotel(hotelId, hotelName, address, description, profileIcon, phoneNumber, cityId);
+                return new Hotel(hotelId, hotelName, address, description, profileIconUrl, phoneNumber, cityId);
             }
         } catch (SQLException e) {
             System.err.println("Ошибка выполнения запроса: " + e.getMessage());

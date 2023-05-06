@@ -13,18 +13,18 @@ public class Hotel {
     private String name;
     private String address;
     private String description;
-    private String profileIcon;
+    private String profileIconUrl;
     private String phoneNumber;
     private UUID cityId;
 
     public Hotel() {}
 
-    public Hotel(UUID hotelId, String name, String address, String description, String profileIcon, String phoneNumber, UUID cityId) {
+    public Hotel(UUID hotelId, String name, String address, String description, String profileIconUrl, String phoneNumber, UUID cityId) {
         this.hotelId = hotelId;
         this.name = name;
         this.address = address;
         this.description = description;
-        this.profileIcon = profileIcon;
+        this.profileIconUrl = profileIconUrl;
         this.phoneNumber = phoneNumber;
         this.cityId = cityId;
     }
