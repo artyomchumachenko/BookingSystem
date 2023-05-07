@@ -1,4 +1,4 @@
-package repositoryfordb.user;
+package dbrepository;
 
 import config.ConnectionPool;
 import entity.user.UserCredentials;
@@ -13,7 +13,7 @@ public class DbUserRepository {
 
     public boolean authenticateUserSqlFunction(String login, String pass) {
         boolean isAuthenticated = false;
-        try (Connection conn = ConnectionPool.getDataSource().getConnection();
+        try (Connection conn = ConnectionPool.getConnection();
              CallableStatement stmt = conn.prepareCall("{? = call authenticate_user(?, ?)}")) {
 
             stmt.registerOutParameter(1, Types.BOOLEAN);
@@ -39,7 +39,7 @@ public class DbUserRepository {
             UserCredentials userCredentials, String email
     ) {
         boolean result = false;
-        try (Connection conn = ConnectionPool.getDataSource().getConnection();
+        try (Connection conn = ConnectionPool.getConnection();
              CallableStatement stmt = conn.prepareCall("{ ? = call register_user(?, ?, ?, ?, ?) }")) {
 
             // Задаем параметры функции

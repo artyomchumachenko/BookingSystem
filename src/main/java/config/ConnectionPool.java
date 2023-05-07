@@ -4,6 +4,8 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionPool {
@@ -22,8 +24,6 @@ public class ConnectionPool {
             dataSource.setPassword(properties.getProperty("password"));
             dataSource.setInitialSize(Integer.parseInt(properties.getProperty("initialSize")));
             dataSource.setMaxTotal(Integer.parseInt(properties.getProperty("maxTotal")));
-
-            System.out.println("Connection Pool was initialized");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -31,5 +31,9 @@ public class ConnectionPool {
 
     public static BasicDataSource getDataSource() {
         return dataSource;
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
     }
 }

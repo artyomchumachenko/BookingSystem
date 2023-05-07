@@ -1,8 +1,8 @@
 package generator.hotel;
 
-import entity.country.Country;
 import entity.hotel.Hotel;
-import repository.CountryRepository;
+import repository.country.CityRepository;
+import repository.country.CountryRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,16 +26,15 @@ public class StartPageGenerator {
 
     private String hotelButtonsAllGenerate(List<Hotel> hotels, String pageTemplate) {
         StringBuilder hotelListHtml = new StringBuilder();
-        CountryRepository cr = new CountryRepository();
+        CountryRepository countryRepository = new CountryRepository();
+        CityRepository cityRepository = new CityRepository();
 
         for (Hotel hotel : hotels) {
-            Country country = cr.findCountryByCityId(hotel.getCityId());
             hotelListHtml
                     .append("<li>")
-//                    .append(hotel.getName()).append(";\t")
-                    .append(country.getName()).append(";\t")
-                    // TODO доделать cityByCityId
-                    .append(hotel.getCityId()).append(";\t")
+                    .append(hotel.getHotelName()).append(";\t")
+//                    .append(countryRepository.findCountryByCityId(hotel.getCityId()).getName()).append(";\t")
+//                    .append(cityRepository.findCityById(hotel.getCityId()).getName()).append(";\t")
                     .append(hotel.getAddress()).append(";\t")
                     .append(hotel.getPhoneNumber()).append("\t")
                     .append("<button id=\"")

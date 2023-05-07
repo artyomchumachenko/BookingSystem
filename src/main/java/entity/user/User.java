@@ -1,15 +1,18 @@
 package entity.user;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.UUID;
 
-/**
- * Класс сущности User
- */
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     private UUID userId;
     private String login;
@@ -17,13 +20,13 @@ public class User {
     private String email;
     private UUID roleId;
 
-    public User() {}
-
-    public User(UUID userId, String login, String password, String email, UUID roleId) {
-        this.userId = userId;
-        this.login = login;
-        this.password = password;
-        this.email = email;
-        this.roleId = roleId;
+    public static User fromResultSet(ResultSet rs) throws SQLException {
+        return User.builder()
+                .userId((UUID) rs.getObject("user_id"))
+                .login(rs.getString("login"))
+                .password(rs.getString("password"))
+                .email(rs.getString("email"))
+                .roleId((UUID) rs.getObject("role_id"))
+                .build();
     }
 }

@@ -1,8 +1,8 @@
 package service.hotel;
 
 import entity.hotel.Hotel;
-import repository.HotelRepository;
-import repository.HotelToUserQuery;
+import repository.hotel.HotelRepository;
+import repository.hotel.HotelManagersQuery;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,8 +19,8 @@ public class HotelService {
     }
 
     public List<UUID> getMyHotelsIdsByUserId(UUID userId) {
-        HotelToUserQuery hotelToUserQuery = new HotelToUserQuery();
-        return hotelToUserQuery.findHotelIdsByUserId(userId);
+        HotelManagersQuery hotelManagersQuery = new HotelManagersQuery();
+        return hotelManagersQuery.findHotelIdsByUserId(userId);
     }
 
     public List<Hotel> getMyHotelsByIds(List<UUID> uuids) {

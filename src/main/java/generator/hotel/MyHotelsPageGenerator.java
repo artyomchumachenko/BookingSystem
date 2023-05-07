@@ -2,7 +2,7 @@ package generator.hotel;
 
 import entity.country.Country;
 import entity.hotel.Hotel;
-import repository.CountryRepository;
+import repository.country.CountryRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;

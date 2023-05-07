@@ -1,20 +1,26 @@
 package entity.user;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Role {
     private UUID roleId;
     private String name;
 
-    public Role() {}
-
-    public Role(UUID roleId, String name) {
-        this.roleId = roleId;
-        this.name = name;
+    public static Role fromResultSet(ResultSet rs) throws SQLException {
+        return Role.builder()
+                .roleId((UUID) rs.getObject("role_id"))
+                .name(rs.getString("name"))
+                .build();
     }
 }

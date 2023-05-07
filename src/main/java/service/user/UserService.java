@@ -3,8 +3,8 @@ package service.user;
 import entity.user.Role;
 import entity.user.User;
 import entity.user.UserCredentials;
-import repository.UserRepository;
-import repositoryfordb.user.DbUserRepository;
+import repository.user.UserRepository;
+import dbrepository.DbUserRepository;
 
 import java.sql.SQLException;
 import java.util.UUID;

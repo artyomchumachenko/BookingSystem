@@ -1,21 +1,26 @@
 package entity.country;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Country {
-
     private UUID countryId;
     private String name;
 
-    public Country() {}
-
-    public Country(String name) {
-        this.countryId = UUID.randomUUID();
-        this.name = name;
+    public static Country fromResultSet(ResultSet rs) throws SQLException {
+        return Country.builder()
+                .countryId(UUID.fromString(rs.getString("country_id")))
+                .name(rs.getString("name"))
+                .build();
     }
 }

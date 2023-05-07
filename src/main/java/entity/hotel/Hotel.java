@@ -1,31 +1,38 @@
 package entity.hotel;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.UUID;
 
-/**
- * Класс сущности Hotel
- */
-@Getter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Hotel {
     private UUID hotelId;
-    private String name;
-    private String address;
     private String description;
     private String profileIconUrl;
     private String phoneNumber;
+    private String hotelName;
+    private String address;
     private UUID cityId;
+    private UUID priceRuleId;
 
-    public Hotel() {}
-
-    public Hotel(UUID hotelId, String name, String address, String description, String profileIconUrl, String phoneNumber, UUID cityId) {
-        this.hotelId = hotelId;
-        this.name = name;
-        this.address = address;
-        this.description = description;
-        this.profileIconUrl = profileIconUrl;
-        this.phoneNumber = phoneNumber;
-        this.cityId = cityId;
+    public static Hotel fromResultSet(ResultSet rs) throws SQLException {
+        return Hotel.builder()
+                .hotelId(UUID.fromString(rs.getString("hotel_id")))
+                .description(rs.getString("description"))
+                .profileIconUrl(rs.getString("profile_icon_url"))
+                .phoneNumber(rs.getString("phone_number"))
+                .hotelName(rs.getString("hotel_name"))
+                .address(rs.getString("address"))
+                .cityId(UUID.fromString(rs.getString("city_id")))
+                .priceRuleId(rs.getString("price_rule_id") != null ? UUID.fromString(rs.getString("price_rule_id")) : null)
+                .build();
     }
 }

@@ -29,6 +29,8 @@ public class StartPageServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         CookieHelper cookieHelper = new CookieHelper();
+//        cookieHelper.clearAllCookies(request, response);
+
         StartPageGenerator pageGenerator = new StartPageGenerator();
 
         List<Hotel> hotels = hotelService.getAllHotel();

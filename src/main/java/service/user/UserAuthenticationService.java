@@ -1,8 +1,8 @@
 package service.user;
 
 import entity.user.UserCredentials;
-import repository.UserRepository;
-import repositoryfordb.user.DbUserRepository;
+import repository.user.UserRepository;
+import dbrepository.DbUserRepository;
 
 /**
  * Класс логической обработки аутентификации пользователя
