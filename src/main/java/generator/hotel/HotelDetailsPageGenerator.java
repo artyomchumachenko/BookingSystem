@@ -27,10 +27,6 @@ public class HotelDetailsPageGenerator {
     private HotelFacilitiesQuery hotelFacilitiesQuery = new HotelFacilitiesQuery();
     private HotelRoomsQuery hotelRoomsQuery = new HotelRoomsQuery();
 
-    /**
-     * Подробности об отеле
-     * TODO доделать вывод страны в зависимости от города в котором расположен отель
-     */
     public String getHotelDetailsPage(String hotelId) throws IOException {
         Hotel hotel = hotelRepository.findHotelById(UUID.fromString(hotelId));
         Country country = countryRepository.findCountryByCityId(hotel.getCityId());

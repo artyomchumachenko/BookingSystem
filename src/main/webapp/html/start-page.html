@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>Booking System</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/BookingSystem_war/html/css/start-page.css">
+</head>
+<body>
+<form id="detailsForm" action="/BookingSystem_war/details" method="get">
+    <input type="hidden" name="hotelId" id="hotelIdInput">
+</form>
+<form id="addToFavoriteHotelForm" action="/BookingSystem_war" method="post">
+    <input type="hidden" name="hotelId" id="favoriteHotelId">
+</form>
+<div class="container">
+    <div class="header">
+        <div class="logo">Онлайн бронирование отелей</div>
+        <ul class="nav">
+            <li><a href="/BookingSystem_war">Главная</a></li>
+            <li><a href="/BookingSystem_war/info">О нас</a></li>
+            <li><a href="/BookingSystem_war/contacts">Контакты</a></li>
+            <li><a href="/BookingSystem_war/login">
+                <!--                Профиль-->
+            </a></li>
+        </ul>
+    </div>
+    <div class="banner">
+        <h1>Найдите свой идеальный отель</h1>
+    </div>
+    <div class="search">
+        <form action="#">
+            <input type="text" name="destination" placeholder="Страна или город отеля">
+            <input type="date" name="checkin" placeholder="Дата заезда">
+            <input type="date" name="checkout" placeholder="Дата выезда">
+            <button type="submit">Поиск</button>
+        </form>
+    </div>
+    <!-- Добавляем блок для вывода отелей -->
+    <div class="hotels">
+        <!-- Добавляем список для вывода пяти отелей -->
+        <ul id="list">
+            <!-- HOTEL_LIST -->
+        </ul>
+    </div>
+    <div class="footer">
+        <p>©2023 Онлайн бронирование отелей. Все права защищены.</p>
+    </div>
+</div>
+<script src="/BookingSystem_war/html/js/start-page.js"></script>
+</body>
+</html>
