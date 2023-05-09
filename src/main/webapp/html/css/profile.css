@@ -67,26 +67,6 @@ label {
     background-color: #930000;
 }
 
-.profile-info {
-    margin-bottom: 20px;
-    text-align: left;
-    display: inline-block; /* добавляем */
-}
-
-.profile-info p {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-    vertical-align: top;
-}
-
-.profile-info label {
-    display: block;
-    font-weight: normal;
-    margin-bottom: 5px;
-    width: auto;
-}
-
 .my-hotels {
     background-color: #4CAF50;
     border: none;
@@ -137,4 +117,68 @@ label {
 
 .replenish-button:hover {
     background-color: #0062cc;
+}
+
+.change-role {
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 20px;
+    display: flex;
+}
+
+.change-role label {
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.change-role input[type="text"],
+.change-role select {
+    width: 230px;
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.change-role button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.change-role button:hover {
+    background-color: #3e8e41;
+}
+
+.profile-info {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-info p {
+    margin: 0;
+    padding: 5px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.profile-info label {
+    font-weight: bold;
+    width: 150px;
+    display: inline-block;
+}
+
+.profile-info p:last-child {
+    border-bottom: none;
 }

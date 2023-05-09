@@ -31,6 +31,25 @@ public class ProfilePageGenerator {
         if (userService.getRoleById(user.getRoleId()).getName().equals("HOTEL")) {
             pageTemplate = pageTemplate.replace("<!--        Кнопка \"Мои отели\"-->",
                                                 "        <p>\n<button class=\"my-hotels\" id=\"my-hotels\" >Мои отели</button>\n</p>");
+        } else if (userService.getRoleById(user.getRoleId()).getName().equals("ADMIN")) {
+            StringBuilder sb = new StringBuilder();
+            sb.append("<div class=\"change-role\">\n");
+            sb.append("  <p>\n");
+            sb.append("    <label>Пользователь:</label>\n");
+            sb.append("    <input type=\"text\" id=\"username\" placeholder=\"Введите логин пользователя\">\n");
+            sb.append("    <button class=\"check-user\" id=\"check-user\">Проверить</button>\n");
+            sb.append("  </p>\n");
+            sb.append("  <p>\n");
+            sb.append("    <label>Роль:</label>\n");
+            sb.append("    <select id=\"role\">\n");
+            sb.append("      <option value=\"CLIENT\">Клиент</option>\n");
+            sb.append("      <option value=\"HOTEL\">Отель</option>\n");
+            sb.append("      <option value=\"ADMIN\">Администратор</option>\n");
+            sb.append("    </select>\n");
+            sb.append("    <button class=\"change-role-button\" id=\"change-role-button\">Изменить роль</button>\n");
+            sb.append("  </p>\n");
+            sb.append("</div>\n");
+            pageTemplate = pageTemplate.replace("<!--    change-role-->", sb.toString());
         }
         return pageTemplate;
     }
