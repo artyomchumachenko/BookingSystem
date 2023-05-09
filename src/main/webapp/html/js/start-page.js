@@ -29,7 +29,7 @@ function toggleFavoriteButton(buttonId) {
     var button = document.getElementById(buttonId);
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '', true);
+    xhr.open('POST', '/BookingSystem_war', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {

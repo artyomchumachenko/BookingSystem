@@ -47,4 +47,18 @@ public class UserRepository {
         }
         return null;
     }
+
+    public void save(User user) {
+        String sql = "UPDATE users SET login=?, password=?, email=?, role_id=? WHERE user_id=?";
+        try (PreparedStatement statement = ConnectionPool.getConnection().prepareStatement(sql)) {
+            statement.setString(1, user.getLogin());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getEmail());
+            statement.setObject(4, user.getRoleId());
+            statement.setObject(5, user.getUserId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -44,7 +44,7 @@ public class ProfilePageGenerator {
             sb.append("    <select id=\"role\">\n");
             sb.append("      <option value=\"CLIENT\">Клиент</option>\n");
             sb.append("      <option value=\"HOTEL\">Отель</option>\n");
-            sb.append("      <option value=\"ADMIN\">Администратор</option>\n");
+//            sb.append("      <option value=\"ADMIN\">Администратор</option>\n");
             sb.append("    </select>\n");
             sb.append("    <button class=\"change-role-button\" id=\"change-role-button\">Изменить роль</button>\n");
             sb.append("  </p>\n");

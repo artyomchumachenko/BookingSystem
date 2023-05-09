@@ -43,4 +43,8 @@ public class UserService {
     public Role getRoleById(UUID roleId) {
         return userRepository.findRoleByRoleId(roleId);
     }
+
+    public void updateUser(User user) {
+        userRepository.save(user);
+    }
 }

@@ -3,13 +3,16 @@ package servlet.user;
 import config.CookieHelper;
 import entity.user.User;
 import generator.user.ProfilePageGenerator;
+import repository.user.RoleRepository;
 import service.user.UserService;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 /**
@@ -33,6 +36,28 @@ public class ProfileServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().print(profilePageGenerator.getProfilePage(user));
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+
+        String username = request.getParameter("username");
+
+        // Обработка полученного имени пользователя
+        User user = tryToFindUserByLogin(username);
+
+        // Отправка ответа клиенту
+        PrintWriter out = response.getWriter();
+        if (user == null) {
+            response.setStatus(201);
+            out.println("notExist");
+        } else {
+            response.setStatus(200);
+            RoleRepository roleRepository = new RoleRepository();
+            String roleName = roleRepository.findRoleById(user.getRoleId()).getName();
+            System.out.println(roleName);
+            out.println(roleName);
+        }
     }
 
     private User tryToFindUserByLogin(String username) {
