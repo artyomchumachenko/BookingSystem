@@ -1,5 +1,6 @@
 package servlet.user;
 
+import config.CookieHelper;
 import entity.user.User;
 import service.user.UserService;
 
@@ -26,6 +27,8 @@ public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        CookieHelper cookieHelper = new CookieHelper();
+        cookieHelper.clearAllCookies(request, response);
         request.getRequestDispatcher("html/login.html").forward(request, response);
     }
 

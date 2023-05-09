@@ -34,6 +34,7 @@ public class ConnectionPool {
     }
 
     public static Connection getConnection() throws SQLException {
+        System.out.println("Get num active = " + dataSource.getNumActive());
         return dataSource.getConnection();
     }
 }

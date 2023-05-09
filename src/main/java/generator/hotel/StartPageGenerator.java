@@ -1,5 +1,6 @@
 package generator.hotel;
 
+import config.CookieHelper;
 import entity.hotel.Hotel;
 import repository.country.CityRepository;
 import repository.country.CountryRepository;
@@ -7,7 +8,9 @@ import repository.country.CountryRepository;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Класс динамической генерации start-page.html
@@ -17,17 +20,17 @@ public class StartPageGenerator {
     /**
      * Генерация главной страницы сайта
      */
-    public String getPage(List<Hotel> hotels, String usernameFromCookie) throws IOException {
+    public String getPage(HashMap<Hotel, Boolean> hotels, String login) throws IOException {
         String mainPageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/start-page.html"));
         mainPageTemplate = hotelButtonsAllGenerate(hotels, mainPageTemplate);
-        mainPageTemplate = profileButtonGenerate(usernameFromCookie, mainPageTemplate);
+        mainPageTemplate = profileButtonGenerate(login, mainPageTemplate);
         return mainPageTemplate;
     }
 
-    private String hotelButtonsAllGenerate(List<Hotel> hotels, String pageTemplate) {
+    private String hotelButtonsAllGenerate(HashMap<Hotel, Boolean> hotels, String pageTemplate) {
         StringBuilder hotelListHtml = new StringBuilder();
 
-        for (Hotel hotel : hotels) {
+        for (Hotel hotel : hotels.keySet()) {
             hotelListHtml
                     .append("<li>")
                     .append("<div class=\"hotel\">")
@@ -37,8 +40,15 @@ public class StartPageGenerator {
                     .append("<div class=\"hotel-buttons\">")
                     .append("<button class=\"favorite-button\" ")
                     .append(" id=\"").append(hotel.getHotelId()).append("\" ")
-                    .append("onclick=\"addToFavoriteHotelHandler(this.id)\"")
-                    .append(">").append("Добавить в избранное").append("</button>")
+                    .append("onclick=\"addToFavoriteHotelHandler(this.id)\"");
+
+            if (!hotels.get(hotel)) {
+                hotelListHtml.append(">").append("Добавить в избранное").append("</button>");
+            } else {
+                hotelListHtml.append(">").append("Удалить из избранного").append("</button>");
+            }
+
+            hotelListHtml
                     .append("<button")
                     .append(" id=\"").append(hotel.getHotelId()).append("\" ")
                     .append("onclick=\"hotelDetailsHandler(this.id)\">Подробнее</button>")
@@ -46,6 +56,7 @@ public class StartPageGenerator {
                     .append("</div>")
                     .append("</div>")
                     .append("</li>");
+
         }
         pageTemplate = pageTemplate.replace("<!-- HOTEL_LIST -->", hotelListHtml.toString());
         return pageTemplate;

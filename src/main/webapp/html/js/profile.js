@@ -4,8 +4,9 @@ var logoutButton = document.getElementById("logout-button");
 // Добавляем обработчик события клика
 logoutButton.addEventListener("click", function () {
     // Удаляем куки пользователя
-    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/BookingSystem_war;";
-    document.cookie = "password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/BookingSystem_war;";
+    eraseCookie("user_uuid");
+    eraseCookie("username");
+    eraseCookie("role");
     // Переходим на страницу логина
     window.location.href = "/BookingSystem_war/login";
 });
