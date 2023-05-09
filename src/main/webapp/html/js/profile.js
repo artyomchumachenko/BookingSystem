@@ -34,3 +34,12 @@ replenishButton.addEventListener("click", function () {
         window.location.href = "/BookingSystem_war/replenish";
     }
 });
+
+var hotelList = document.getElementById("my-hotels");
+if (hotelList != null) {
+    // Добавляем обработчик события клика
+    hotelList.addEventListener("click", function () {
+        // Переходим на главную страницу
+        window.location.href = "/BookingSystem_war/my-hotels";
+    });
+}

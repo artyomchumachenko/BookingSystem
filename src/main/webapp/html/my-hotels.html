@@ -3,107 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Мои отели</title>
-    <style>
-        /* Здесь можно добавить стили для страницы */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            background-color: #4CAF50;
-            color: white;
-            margin: 0;
-            padding: 20px;
-        }
-
-        ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        li {
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin: 10px;
-            padding: 20px;
-        }
-
-        li:nth-child(odd) {
-            background-color: #e4e4e4;
-        }
-
-        button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #3e8e41;
-        }
-    </style>
+    <link rel="stylesheet" href="/BookingSystem_war/html/css/my-hotels.css">
 </head>
 <body>
 <h1>Мои отели</h1>
 <ul id="hotels-list">
     <!-- Список отелей будет добавлен сюда с помощью JavaScript -->
 </ul>
-
-<script>
-    // Здесь можно добавить код JavaScript для получения списка отелей
-    // и добавления их на страницу
-
-    // Пример списка отелей
-    var hotels = [
-        // Объекты отелей
-    ];
-
-    // Получаем элемент списка отелей
-    var hotelsList = document.getElementById("hotels-list");
-
-    // Добавляем отели в список
-    for (var i = 0; i < hotels.length; i++) {
-        var hotel = hotels[i];
-        var hotelItem = document.createElement("li");
-
-        // Создаем элементы для названия отеля и кнопок
-        var hotelName = document.createElement("span");
-        hotelName.textContent = hotel.name;
-
-        var viewButton = document.createElement("button");
-        viewButton.id = hotel.id;
-        viewButton.addEventListener("click", function() {
-            window.location.href = "/BookingSystem_war/details?hotelId=" + this.id;
-        });
-        viewButton.textContent = "Просмотр";
-
-        var editButton = document.createElement("button");
-        editButton.textContent = "Редактирование";
-
-        var deleteButton = document.createElement("button");
-        deleteButton.textContent = "Удалить";
-
-        // Добавляем элементы в элемент списка
-        hotelItem.appendChild(hotelName);
-        hotelItem.appendChild(viewButton);
-        hotelItem.appendChild(editButton);
-        hotelItem.appendChild(deleteButton);
-
-        // Добавляем элемент списка в список отелей
-        hotelsList.appendChild(hotelItem);
-    }
-</script>
 </body>
+<script src="/BookingSystem_war/html/js/my-hotels.js"></script>
 </html>

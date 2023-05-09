@@ -1,16 +1,11 @@
 package generator.hotel;
 
-import config.CookieHelper;
 import entity.hotel.Hotel;
-import repository.country.CityRepository;
-import repository.country.CountryRepository;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Класс динамической генерации start-page.html

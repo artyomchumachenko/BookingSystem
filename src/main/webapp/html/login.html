@@ -3,58 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Авторизация</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #F0F8FF;
-        }
-
-        .login-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 50px;
-        }
-
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            box-sizing: border-box;
-            border: 2px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            width: 100%;
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .login-form {
-            border-radius: 5px;
-            background-color: #f2f2f2;
-            padding: 20px;
-            width: 30%;
-        }
-
-        .error {
-            color: red;
-            text-align: center;
-            margin-top: 20px; /* расстояние сверху от кнопок */
-            margin-bottom: 0; /* убираем отступ снизу */
-        }
-    </style>
+    <link rel="stylesheet" href="/BookingSystem_war/html/css/login.css">
 </head>
 <body>
 <div class="login-container">
@@ -73,55 +22,9 @@
         <p class="error" id="error-message"></p>
     </div>
 </div>
-
-<script>
-    function login() {
-        // Получаем значения полей логина и пароля
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
-
-        // Создаем объект FormData для отправки данных формы
-        const formData = new FormData();
-        formData.append('username', username);
-        formData.append('password', password);
-
-        // Отправляем запрос на сервер с использованием метода POST
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "login", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send("username=" + username + "&password=" + password);
-
-        xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                console.log(this.responseText);
-                window.location.href = "/BookingSystem_war/profile";
-            }
-            if (this.status == 204) {
-                var errorMessage = document.getElementById("error-message");
-                errorMessage.textContent = "Ошибка ввода логина или пароля";
-            }
-        };
-    }
-
-    function forgotPassword() {
-        // Здесь можно добавить код для восстановления пароля
-        alert("Функция восстановления пароля");
-    }
-
-    function register() {
-        // Переходим на страницу регистрации
-        window.location.href = "/BookingSystem_war/registration";
-    }
-</script>
-
 <div style="position: fixed; top: 10px; right: 10px;">
     <button onclick="goToHomePage()">На главную</button>
 </div>
-
-<script>
-    function goToHomePage() {
-        window.location.href = "/BookingSystem_war";
-    }
-</script>
 </body>
+<script src="/BookingSystem_war/html/js/login.js"></script>
 </html>

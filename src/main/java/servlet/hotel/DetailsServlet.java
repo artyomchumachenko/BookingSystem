@@ -1,6 +1,5 @@
 package servlet.hotel;
 
-import entity.hotel.Hotel;
 import generator.hotel.HotelDetailsPageGenerator;
 import service.hotel.HotelService;
 
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * "Подробнее" для какого-либо отеля

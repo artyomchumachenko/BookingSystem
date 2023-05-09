@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header a {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    text-decoration: none;
+    border: 2px solid white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+header a:hover {
+    background-color: white;
+    color: #4CAF50;
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+footer {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
