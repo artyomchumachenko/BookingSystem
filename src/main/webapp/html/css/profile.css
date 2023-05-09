@@ -82,6 +82,21 @@ label {
     background-color: #3e8e41;
 }
 
+.add-my-hotel {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    display: inline-block; /* добавляем */
+    vertical-align: top; /* добавляем */
+}
+
+.add-my-hotel:hover {
+    background-color: #3e8e41;
+}
+
 .user-wallet {
     border: 1px solid #ccc;
     padding: 20px;

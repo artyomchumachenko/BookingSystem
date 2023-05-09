@@ -30,7 +30,9 @@ public class ProfilePageGenerator {
         pageTemplate = pageTemplate.replace("<!--            Роль-->", userService.getRoleById(user.getRoleId()).getName());
         if (userService.getRoleById(user.getRoleId()).getName().equals("HOTEL")) {
             pageTemplate = pageTemplate.replace("<!--        Кнопка \"Мои отели\"-->",
-                                                "        <p>\n<button class=\"my-hotels\" id=\"my-hotels\" >Мои отели</button>\n</p>");
+                    "        <p>\n<button class=\"my-hotels\" id=\"my-hotels\" >Мои отели</button>\n</p>");
+            pageTemplate = pageTemplate.replace("<!--        Добавить отель-->",
+                    "        <p>\n<button class=\"add-my-hotel\" id=\"add-my-hotel\" >Добавить отель</button>\n</p>");
         } else if (userService.getRoleById(user.getRoleId()).getName().equals("ADMIN")) {
             StringBuilder sb = new StringBuilder();
             sb.append("<div class=\"change-role\">\n");
@@ -58,7 +60,8 @@ public class ProfilePageGenerator {
         WalletService walletService = new WalletService();
         Wallet wallet = walletService.getWalletByUserId(userId);
         String frozen;
-        if (wallet.isFrozen()) frozen = "Заморожен"; else frozen = "Активен";
+        if (wallet.isFrozen()) frozen = "Заморожен";
+        else frozen = "Активен";
 
         pageTemplate = pageTemplate.replace("неизвестен", frozen);
         pageTemplate = pageTemplate.replace("0 руб.", wallet.getBalanceRub().toString());

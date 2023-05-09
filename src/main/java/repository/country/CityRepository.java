@@ -3,9 +3,12 @@ package repository.country;
 import config.ConnectionPool;
 import entity.country.City;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class CityRepository {
@@ -32,5 +35,19 @@ public class CityRepository {
         }
 
         return null;
+    }
+
+    public List<City> all() {
+        List<City> cities = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM public.cities");
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                cities.add(City.fromResultSet(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return cities;
     }
 }

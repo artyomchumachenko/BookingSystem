@@ -26,4 +26,8 @@ public class HotelService {
     public List<Hotel> getMyHotelsByIds(List<UUID> uuids) {
         return hotelRepository.findHotelsByIds(uuids);
     }
+
+    public void create(Hotel hotel) {
+        hotelRepository.add(hotel);
+    }
 }
