@@ -83,20 +83,50 @@ public class HotelRepository {
     }
 
     public void add(Hotel hotel) {
-        String query = "INSERT INTO public.hotels " +
-                "(description, profile_icon_url, phone_number, hotel_name, address, city_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
-        try(Connection connection = ConnectionPool.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, hotel.getDescription());
-            statement.setString(2, hotel.getProfileIconUrl());
-            statement.setString(3, hotel.getPhoneNumber());
-            statement.setString(4, hotel.getHotelName());
-            statement.setString(5, hotel.getAddress());
-            statement.setObject(6, hotel.getCityId());
-            statement.setObject(7, hotel.getPriceRuleId());
+        String query = "INSERT INTO hotels " +
+                "(hotel_id, description, profile_icon_url, phone_number, hotel_name, address, city_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setObject(1, hotel.getHotelId());
+            statement.setString(2, hotel.getDescription());
+            statement.setString(3, hotel.getProfileIconUrl());
+            statement.setString(4, hotel.getPhoneNumber());
+            statement.setString(5, hotel.getHotelName());
+            statement.setString(6, hotel.getAddress());
+            statement.setObject(7, hotel.getCityId());
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addWithConnection(Hotel hotel, Connection connection) {
+        String query = "INSERT INTO hotels " +
+                "(hotel_id, description, profile_icon_url, phone_number, hotel_name, address, city_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setObject(1, hotel.getHotelId());
+            statement.setString(2, hotel.getDescription());
+            statement.setString(3, hotel.getProfileIconUrl());
+            statement.setString(4, hotel.getPhoneNumber());
+            statement.setString(5, hotel.getHotelName());
+            statement.setString(6, hotel.getAddress());
+            statement.setObject(7, hotel.getCityId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void remove(UUID hotelId) {
+        String query = "DELETE FROM hotels WHERE hotel_id = ?";
+        // Подключаемся к базе данных и удаляем отель с указанным ID
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setObject(1, hotelId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

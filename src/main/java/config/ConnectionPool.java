@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Properties;
 
 public class ConnectionPool {
@@ -24,6 +25,7 @@ public class ConnectionPool {
             dataSource.setPassword(properties.getProperty("password"));
             dataSource.setInitialSize(Integer.parseInt(properties.getProperty("initialSize")));
             dataSource.setMaxTotal(Integer.parseInt(properties.getProperty("maxTotal")));
+            dataSource.setConnectionProperties("useUnicode=true;characterEncoding=UTF-8;");
         } catch (IOException e) {
             e.printStackTrace();
         }

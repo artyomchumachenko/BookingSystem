@@ -24,7 +24,7 @@ public class ReplenishServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
-        request.getRequestDispatcher("html/replenish.html").include(request, response);
+        request.getRequestDispatcher("page/html/replenish.html").include(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {

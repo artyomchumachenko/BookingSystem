@@ -23,7 +23,7 @@ public class RegistrationServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher("html/registration.html").forward(request, response);
+        request.getRequestDispatcher("page/html/registration.html").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {

@@ -31,7 +31,7 @@ public class HotelDetailsPageGenerator {
         Hotel hotel = hotelRepository.findHotelById(UUID.fromString(hotelId));
         Country country = countryRepository.findCountryByCityId(hotel.getCityId());
 
-        String pageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/hotel-details.html"));
+        String pageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/page/html/hotel-details.html"));
         pageTemplate = pageTemplate.replace("<!--        Название отеля-->", hotel.getHotelName());
         pageTemplate = pageTemplate.replace("<!--        Здесь вы можете добавить описание отеля.-->", hotel.getDescription());
         pageTemplate = pageTemplate.replace("<!--        Здесь вы можете добавить информацию о ценах и бронировании.-->", country.getName());

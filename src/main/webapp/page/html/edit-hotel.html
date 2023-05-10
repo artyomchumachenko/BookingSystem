@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Info</title>
+</head>
+<body>
+
+<!-- Слой основной информации об отеле -->
+<div id="hotel-info">
+    <label>Название отеля:</label>
+    <input type="text" id="hotel-name" name="hotel-name" required><br>
+    <label>Адрес:</label>
+    <input type="text" id="hotel-address" name="hotel-address" required><br>
+    <label>Описание:</label>
+    <textarea id="hotel-description" name="hotel-description"></textarea><br>
+    <label>Иконка профиля:</label>
+    <input type="text" id="hotel-icon-url" name="hotel-icon-url"><br>
+    <label>Телефон:</label>
+    <input type="text" id="hotel-phone" name="hotel-phone" required><br>
+    <label>Город:</label>
+    <select id="hotel-city" name="hotel-city" required>
+        <option value="">Выберите город</option>
+    </select><br>
+</div>
+<!-- Кнопки "Сохранить" и "Редактировать" -->
+<div id="buttons">
+    <button id="edit-button">Редактировать</button>
+    <button id="save-button">Сохранить</button>
+</div>
+</body>
+<script src="/BookingSystem_war/page/js/hotel-info.js"></script>
+<script src="/BookingSystem_war/page/js/cities.js"></script>
+</html>

@@ -16,7 +16,7 @@ import java.util.UUID;
 public class ProfilePageGenerator {
 
     public String getProfilePage(User user) throws IOException {
-        String pageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/profile.html"));
+        String pageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/page/html/profile.html"));
         pageTemplate = profilePrivateInfoGenerate(pageTemplate, user);
         pageTemplate = infoAboutUserWallet(pageTemplate, user.getUserId());
         return pageTemplate;

@@ -14,6 +14,6 @@ public class ContactsServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Перенаправление на страницу contacts.html
-        response.sendRedirect("html/contacts.html");
+        response.sendRedirect("page/html/contacts.html");
     }
 }

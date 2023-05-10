@@ -16,7 +16,7 @@ public class StartPageGenerator {
      * Генерация главной страницы сайта
      */
     public String getPage(HashMap<Hotel, Boolean> hotels, String login) throws IOException {
-        String mainPageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/start-page.html"));
+        String mainPageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/page/html/start-page.html"));
         mainPageTemplate = hotelButtonsAllGenerate(hotels, mainPageTemplate);
         mainPageTemplate = profileButtonGenerate(login, mainPageTemplate);
         return mainPageTemplate;

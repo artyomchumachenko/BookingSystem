@@ -8,9 +8,10 @@ function loadCities() {
             var select = document.getElementById('city');
             cities.forEach(function(city) {
                 var option = document.createElement('option');
-                option.value = city.id;
+                option.value = city.cityId;
                 option.text = city.name;
                 console.log(city.name);
+                console.log(option);
                 select.appendChild(option);
             });
         } else {

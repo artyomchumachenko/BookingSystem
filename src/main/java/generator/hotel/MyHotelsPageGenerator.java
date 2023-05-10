@@ -13,7 +13,7 @@ import java.util.List;
 public class MyHotelsPageGenerator {
 
     public String getPage(List<Hotel> hotels) throws IOException {
-        String pageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/html/my-hotels.html"));
+        String pageTemplate = Files.readString(Paths.get("../webapps/BookingSystem_war/page/html/my-hotels.html"));
         StringBuilder sb = new StringBuilder();
 
         for (Hotel hotel : hotels) {

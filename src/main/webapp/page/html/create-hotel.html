@@ -2,14 +2,14 @@
 <html>
 <head>
     <title>Создание нового отеля</title>
-    <link rel="stylesheet" href="/BookingSystem_war/html/css/create-hotel.css">
+    <link rel="stylesheet" href="/BookingSystem_war/page/css/create-hotel.css">
     <meta charset="UTF-8">
 </head>
 <body>
 <div class="main-title">
     <h1>Создание нового отеля</h1>
 </div>
-<form action="/create-hotel" method="post">
+    <form action="/BookingSystem_war/create-hotel" method="post" accept-charset="UTF-8">
     <label for="description">Описание:</label>
     <textarea id="description" name="description"></textarea>
     <br>
@@ -28,14 +28,10 @@
     <label for="city">Город:</label>
     <select id="city" name="city"></select>
     <br>
-    <label for="adultPrice">Цена за сутки для взрослого:</label>
-    <input type="number" id="adultPrice" name="adultPrice" required>
-    <label for="childPrice">Цена за сутки для ребенка:</label>
-    <input type="number" id="childPrice" name="childPrice" required>
     <br>
     <input type="submit" value="Создать отель">
 </form>
 </body>
-<script src="/BookingSystem_war/html/js/cities.js"></script>
-<script src="/BookingSystem_war/html/js/create-hotel.js"></script>
+<script src="/BookingSystem_war/page/js/cities.js"></script>
+<script src="/BookingSystem_war/page/js/create-hotel.js"></script>
 </html>

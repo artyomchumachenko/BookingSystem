@@ -1,9 +1,12 @@
 package servlet.hotel;
 
+import config.ConnectionPool;
+import config.CookieHelper;
 import entity.country.City;
 import entity.hotel.Hotel;
 import entity.hotel.PriceRule;
 import repository.country.CityRepository;
+import repository.hotel.HotelManagersQuery;
 import service.hotel.HotelService;
 
 import javax.servlet.ServletException;
@@ -12,14 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
 @WebServlet("/create-hotel")
 public class CreateHotelServlet extends HttpServlet {
-
-    private static final long serialVersionUID = 1L;
-
     private CityRepository cityDAO;
     private HotelService hotelDAO;
 
@@ -35,23 +37,64 @@ public class CreateHotelServlet extends HttpServlet {
 
         request.setAttribute("cities", cities);
 
-        request.getRequestDispatcher("html/create-hotel.html").forward(request, response);
+        request.getRequestDispatcher("page/html/create-hotel.html").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
+        UUID hotelId = UUID.randomUUID();
         String description = request.getParameter("description");
-        String profileIconUrl = request.getParameter("profileIconUrl");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String hotelName = request.getParameter("hotelName");
+        String profileIconUrl = request.getParameter("profile_icon_url");
+        String phoneNumber = request.getParameter("phone_number");
+        String hotelName = request.getParameter("hotel_name");
         String address = request.getParameter("address");
-        UUID cityId = UUID.fromString(request.getParameter("cityId"));
-        UUID priceRuleId = UUID.fromString(request.getParameter("priceRuleId"));
+        UUID cityId = UUID.fromString(request.getParameter("city"));
+        Hotel hotel = new Hotel(hotelId, description, profileIconUrl, phoneNumber, hotelName, address, cityId, null);
 
-        Hotel hotel = new Hotel(UUID.randomUUID(), description, profileIconUrl, phoneNumber, hotelName, address, cityId, priceRuleId);
+        Connection connection = null;
+        try {
+            connection = ConnectionPool.getConnection();
+            connection.setAutoCommit(false);
 
-        hotelDAO.create(hotel);
+            hotelDAO.createWithConnection(hotel, connection);
+
+            // Подтверждение транзакции и завершение операции добавления отеля
+            connection.commit();
+
+            // Открытие новой транзакции для добавления менеджера отеля
+            connection.setAutoCommit(false);
+
+            CookieHelper cookieHelper = new CookieHelper();
+            UUID ownerId = UUID.fromString(cookieHelper.getTargetFromCookie(request, "user_uuid"));
+            HotelManagersQuery hotelManagersQuery = new HotelManagersQuery();
+            System.out.println("HotelId " + hotelId);
+            System.out.println("OwnerId " + ownerId);
+            hotelManagersQuery.addOwnerToHotelWithConnection(ownerId, hotelId, connection);
+
+            // Подтверждение транзакции и завершение операции добавления менеджера отеля
+            connection.commit();
+        } catch (SQLException ex) {
+            // Отмена всех операций в случае ошибки
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException ex1) {
+                    ex1.printStackTrace();
+                }
+            }
+            ex.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.setAutoCommit(true);
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
 
         response.sendRedirect(request.getContextPath() + "/my-hotels");
     }

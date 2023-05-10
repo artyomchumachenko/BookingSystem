@@ -2,10 +2,7 @@ package repository.hotel;
 
 import config.ConnectionPool;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -32,4 +29,16 @@ public class HotelManagersQuery {
         }
         return null;
     }
+
+    public void addOwnerToHotelWithConnection(UUID ownerId, UUID hotelId, Connection connection) throws SQLException {
+        String sql = "{call add_hotel_owner_to_managers (?, ?)}";
+        try (CallableStatement statement = connection.prepareCall(sql)) {
+            statement.setObject(1, hotelId);
+            statement.setObject(2, ownerId);
+            statement.execute();
+        } catch (SQLException e) {
+            throw new SQLException("Failed to add owner to hotel", e);
+        }
+    }
+
 }

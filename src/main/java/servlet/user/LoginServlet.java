@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         CookieHelper cookieHelper = new CookieHelper();
         cookieHelper.clearAllCookies(request, response);
-        request.getRequestDispatcher("html/login.html").forward(request, response);
+        request.getRequestDispatcher("page/html/login.html").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

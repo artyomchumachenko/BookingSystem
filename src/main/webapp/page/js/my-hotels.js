@@ -18,9 +18,17 @@ for (var i = 0; i < hotels.length; i++) {
     viewButton.textContent = "Просмотр";
 
     var editButton = document.createElement("button");
+    editButton.id = hotel.id;
+    editButton.addEventListener("click", function() {
+        window.location.href = "/BookingSystem_war/edit?hotelId=" + this.id;
+    });
     editButton.textContent = "Редактирование";
 
     var deleteButton = document.createElement("button");
+    deleteButton.id = hotel.id;
+    deleteButton.addEventListener("click", function() {
+        window.location.href = "/BookingSystem_war/delete?hotelId=" + this.id;
+    });
     deleteButton.textContent = "Удалить";
 
     // Добавляем элементы в элемент списка

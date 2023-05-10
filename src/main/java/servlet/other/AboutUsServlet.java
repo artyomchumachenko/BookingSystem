@@ -12,6 +12,6 @@ import java.io.IOException;
 @WebServlet(name = "AboutUsServlet", urlPatterns = {"/info"})
 public class AboutUsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect("html/info.html");
+        response.sendRedirect("page/html/info.html");
     }
 }
