@@ -19,6 +19,7 @@ public class PriceRule {
     private BigDecimal adultPricePerDay;
     private BigDecimal kidPricePerDay;
     private UUID roomTypeId;
+    private UUID hotelId;
 
     public static PriceRule fromResultSet(ResultSet rs) throws SQLException {
         return PriceRule.builder()
@@ -26,6 +27,7 @@ public class PriceRule {
                 .adultPricePerDay(rs.getBigDecimal("adult_price_day"))
                 .kidPricePerDay(rs.getBigDecimal("kid_price_day"))
                 .roomTypeId((UUID) rs.getObject("room_type_id"))
+                .hotelId((UUID) rs.getObject("hotel_id"))
                 .build();
     }
 }

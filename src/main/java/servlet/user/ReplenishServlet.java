@@ -27,7 +27,7 @@ public class ReplenishServlet extends HttpServlet {
         request.getRequestDispatcher("page/html/replenish.html").include(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String cardNumber = request.getParameter("cardNumber");
         String cvcCode = request.getParameter("cvcCode");
         String amount = request.getParameter("amount");
@@ -39,5 +39,8 @@ public class ReplenishServlet extends HttpServlet {
         // Далее можно написать код, который будет обрабатывать данные и отправлять ответ клиенту
         CookieHelper cookieHelper = new CookieHelper();
         walletService.replenishBalance(UUID.fromString(cookieHelper.getTargetFromCookie(request, "user_uuid")), BigDecimal.valueOf(Double.parseDouble(amount)));
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().print("Операция выполнена успешно");
     }
 }

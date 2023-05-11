@@ -62,3 +62,16 @@ input[type="number"]:focus {
 .btn:hover {
     background-color: #483d8b;
 }
+
+.back-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}

@@ -21,7 +21,6 @@ public class Hotel {
     private String hotelName;
     private String address;
     private UUID cityId;
-    private UUID priceRuleId;
 
     public static Hotel fromResultSet(ResultSet rs) throws SQLException {
         return Hotel.builder()
@@ -32,7 +31,6 @@ public class Hotel {
                 .hotelName(rs.getString("hotel_name"))
                 .address(rs.getString("address"))
                 .cityId(UUID.fromString(rs.getString("city_id")))
-                .priceRuleId(rs.getString("price_rule_id") != null ? UUID.fromString(rs.getString("price_rule_id")) : null)
                 .build();
     }
 }

@@ -130,4 +130,24 @@ public class HotelRepository {
             e.printStackTrace();
         }
     }
+
+    public void update(Hotel hotel) {
+        String sql = "UPDATE hotels SET description = ?, profile_icon_url = ?, phone_number = ?, hotel_name = ?, " +
+                "address = ?, city_id = ? WHERE hotel_id = ?";
+        try (Connection connection = ConnectionPool.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, hotel.getDescription());
+                statement.setString(2, hotel.getProfileIconUrl());
+                statement.setString(3, hotel.getPhoneNumber());
+                statement.setString(4, hotel.getHotelName());
+                statement.setString(5, hotel.getAddress());
+                statement.setObject(6, hotel.getCityId());
+                statement.setObject(7, hotel.getHotelId());
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            // Обработка ошибки
+            System.out.println(e.getMessage());
+        }
+    }
 }

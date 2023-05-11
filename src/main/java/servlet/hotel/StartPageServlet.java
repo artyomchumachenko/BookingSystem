@@ -40,7 +40,6 @@ public class StartPageServlet extends HttpServlet {
         for (Hotel hotel : hotels) {
             favoriteHotelsMap.put(hotel, Boolean.FALSE);
         }
-
         if (usernameFromCookie != null) {
             userIdFromCookie = UUID.fromString(cookieHelper.getTargetFromCookie(request, "user_uuid"));
             UserFavoriteHotelService userFavoriteHotelService = new UserFavoriteHotelService();

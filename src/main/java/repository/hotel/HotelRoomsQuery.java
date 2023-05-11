@@ -2,6 +2,8 @@ package repository.hotel;
 
 import config.ConnectionPool;
 
+import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,5 +37,45 @@ public class HotelRoomsQuery {
             }
             return freeRoomsByRoomName;
         }
+    }
+
+    // метод для поиска цен на номера по ID отеля
+    public Map<String, BigDecimal> findRoomPricesByHotelId(UUID hotelId) throws SQLException {
+        Map<String, BigDecimal> prices = new HashMap<>();
+        Connection connection = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            connection = ConnectionPool.getConnection();
+            String query = "SELECT r.name, pr.adult_price_day " +
+                    "FROM public.hotel_rooms hr " +
+                    "JOIN public.rooms r ON r.room_id = hr.room_id " +
+                    "JOIN public.price_rules pr ON pr.room_type_id = r.room_id " +
+                    "WHERE hr.hotel_id = ? " +
+                    "ORDER BY r.name ASC";
+            stmt = connection.prepareStatement(query);
+            stmt.setObject(1, hotelId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String roomName = rs.getString("name");
+                BigDecimal price = rs.getBigDecimal("adult_price_day");
+                prices.put(roomName, price);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return prices;
     }
 }

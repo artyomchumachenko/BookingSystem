@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Бронирование</title>
+    <link rel="stylesheet" href="/BookingSystem_war/page/css/booking.css">
+</head>
+<body>
+<header>
+    <button class="back-button" id="back-button">Назад</button>
+    <h1>Бронирование отеля: <!--        Название отеля--></h1>
+</header>
+<form action="/BookingSystem_war/" method="get">
+    <label for="num-guests" id="num-guests">Количество гостей:</label>
+    <div class="guests-container">
+        <div class="guests-input">
+            <select id="adults" name="adults">
+                <option value="1">1 взрослый</option>
+                <option value="2">2 взрослых</option>
+                <option value="3">3 взрослых</option>
+                <option value="4">4 взрослых</option>
+            </select>
+            <select id="children" name="children">
+                <option value="0">0 детей</option>
+                <option value="1">1 ребёнок</option>
+                <option value="2">2 ребёнка</option>
+                <option value="3">3 ребёнка</option>
+                <option value="4">4 ребёнка</option>
+            </select>
+        </div>
+    </div>
+    <label for="room-type">Тип номера:</label>
+    <select id="room-type" name="room-type">
+<!--        <option value="1">Single Room</option>-->
+<!--        <option value="2">Double Room</option>-->
+<!--        <option value="3">Suite</option>-->
+    </select>
+    <label for="check-in-date">Дата заезда:</label>
+    <input type="date" id="check-in-date" name="check-in-date">
+    <label for="check-out-date">Дата отъезда:</label>
+    <input type="date" id="check-out-date" name="check-out-date">
+    <div class="total-price-container">
+        <label>Итоговая цена: 0</label>
+        <span id="total-price"></span>
+    </div>
+    <img src="https://hotel-parkoff.ru/images/blog/213_hotel_reservation.jpg" alt="My Image" class="right-image">
+    <button type="submit" id="book-button" disabled>Забронировать</button>
+    <button type="button" id="calculate-price-button">Рассчитать цену</button>
+</form>
+</body>
+<script src="/BookingSystem_war/page/js/booking.js"></script>
+</html>

@@ -43,4 +43,8 @@ public class HotelService {
     public Hotel getById(UUID hotelId) {
         return hotelRepository.findHotelById(hotelId);
     }
+
+    public void updateHotel(Hotel hotel) {
+        hotelRepository.update(hotel);
+    }
 }

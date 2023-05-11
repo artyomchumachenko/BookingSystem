@@ -113,6 +113,5 @@ if (getCookie("role") === 'ADMIN') {
 
 // Отправляем запрос на сервер
         xhr.send(params);
-    })
-    ;
+    });
 }

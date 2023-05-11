@@ -50,7 +50,7 @@ public class CreateHotelServlet extends HttpServlet {
         String hotelName = request.getParameter("hotel_name");
         String address = request.getParameter("address");
         UUID cityId = UUID.fromString(request.getParameter("city"));
-        Hotel hotel = new Hotel(hotelId, description, profileIconUrl, phoneNumber, hotelName, address, cityId, null);
+        Hotel hotel = new Hotel(hotelId, description, profileIconUrl, phoneNumber, hotelName, address, cityId);
 
         Connection connection = null;
         try {

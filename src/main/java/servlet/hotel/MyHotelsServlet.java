@@ -37,10 +37,15 @@ public class MyHotelsServlet extends HttpServlet {
         List<Hotel> hotels = hotelService.getMyHotelsByIds(hotelIds);
         // Поместить их в список hotels и вывести на странице my-hotels
 
-        response.setContentType("text/html");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().print(pageGenerator.getPage(hotels));
+        if (hotels == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.setContentType("text/html");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().print("Отели не найдены.");
+        } else {
+            response.setContentType("text/html");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().print(pageGenerator.getPage(hotels));
+        }
     }
-
-
 }
