@@ -11,7 +11,6 @@ import java.util.UUID;
 
 public class UserService {
     private final UserRepository userRepository;
-    private DbUserRepository dbUserRepository = new DbUserRepository();
 
     public UserService() {
         this.userRepository = new UserRepository();
@@ -19,7 +18,7 @@ public class UserService {
 
     public User authenticate(String login, String password) throws SQLException {
         UserCredentials userCredentials = new UserCredentials(login, password);
-        UserAuthenticationService userAuthenticationService = new UserAuthenticationService(this.userRepository);
+        UserAuthenticationService userAuthenticationService = new UserAuthenticationService();
 
         if (userAuthenticationService.dbAuthenticate(userCredentials)) {
             return userRepository.findByLogin(login);
@@ -27,24 +26,16 @@ public class UserService {
         return null;
     }
 
-    public boolean isUserCreated(
-            UserCredentials userCredentials,
-            String email
-    ) {
-        return dbUserRepository.createUserSqlFunction(
-                userCredentials, email
-        );
+    public boolean isUserCreated(UserCredentials userCredentials, String email) {
+        DbUserRepository dbUserRepository = new DbUserRepository();
+        return dbUserRepository.createUserSqlFunction(userCredentials, email);
     }
 
     public User getUserByLogin(String login) throws SQLException {
         return userRepository.findByLogin(login);
     }
 
-    public Role getRoleById(UUID roleId) {
-        return userRepository.findRoleByRoleId(roleId);
-    }
-
-    public void updateUser(User user) {
-        userRepository.save(user);
+    public void save(User user) {
+        userRepository.update(user);
     }
 }

@@ -35,7 +35,7 @@ public class DetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UUID hotelId = UUID.fromString(request.getParameter("hotelId"));
 
-        Hotel hotel = hotelRepository.findHotelById(hotelId);
+        Hotel hotel = hotelRepository.findById(hotelId);
         Country country = countryRepository.findByCityId(hotel.getCityId());
         City city = cityRepository.findById(hotel.getCityId());
         Map<String, Boolean> facilities = hotelFacilityRepository.findFacilitiesByHotelId(hotelId);

@@ -2,6 +2,7 @@ package servlet.hotel;
 
 import config.CookieHelper;
 import entity.hotel.Hotel;
+import entity.user.UserFavoriteHotel;
 import generator.hotel.StartPageGenerator;
 import service.hotel.HotelService;
 import service.user.UserFavoriteHotelService;
@@ -67,7 +68,8 @@ public class StartPageServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         if (action != null && action.equals("add")) {
-            userFavoriteHotelService.addFavoriteHotelByUserId(userId, favoriteHotelId);
+            UserFavoriteHotel userFavoriteHotel = new UserFavoriteHotel(UUID.randomUUID(), userId, favoriteHotelId);
+            userFavoriteHotelService.create(userFavoriteHotel);
         } else if (action != null && action.equals("remove")) {
             userFavoriteHotelService.removeFavoriteHotelByUserId(userId, favoriteHotelId);
         }

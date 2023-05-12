@@ -2,7 +2,6 @@ package service.booking;
 
 import entity.booking.Booking;
 import repository.booking.BookingRepository;
-import repository.user.WalletRepository;
 
 import java.util.List;
 import java.util.UUID;

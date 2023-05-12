@@ -1,7 +1,9 @@
 package servlet.user;
 
 import config.CookieHelper;
+import entity.user.Role;
 import entity.user.User;
+import repository.user.RoleRepository;
 import service.user.UserService;
 
 import javax.servlet.ServletException;
@@ -53,9 +55,11 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             try {
                 User currUser = userService.getUserByLogin(username);
+                RoleRepository roleRepository = new RoleRepository();
+                Role role = roleRepository.findById(user.getRoleId());
                 Cookie cookieUsername = new Cookie("username", currUser.getLogin());
                 Cookie cookieUserId = new Cookie("user_uuid", currUser.getUserId().toString());
-                Cookie cookieRoleName = new Cookie("role", userService.getRoleById(currUser.getRoleId()).getName());
+                Cookie cookieRoleName = new Cookie("role", role.getName());
                 cookieUsername.setMaxAge(86400); // Установка времени жизни в 24 часа
                 cookieUserId.setMaxAge(86400); // Установка времени жизни в 24 часа
                 cookieRoleName.setMaxAge(86400); // Установка времени жизни в 24 часа

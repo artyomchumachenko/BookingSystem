@@ -1,8 +1,8 @@
 package service.user;
 
 import entity.hotel.Hotel;
+import entity.user.UserFavoriteHotel;
 import repository.user.UserFavoriteHotelRepository;
-import repository.user.WalletRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,8 +14,8 @@ public class UserFavoriteHotelService {
         this.userFavoriteHotelRepository = new UserFavoriteHotelRepository();
     }
 
-    public void addFavoriteHotelByUserId(UUID userId, UUID hotelId) {
-        userFavoriteHotelRepository.add(userId, hotelId);
+    public void create(UserFavoriteHotel userFavoriteHotel) {
+        userFavoriteHotelRepository.add(userFavoriteHotel);
     }
 
     public List<Hotel> getFavoriteHotelsByUserId(UUID userId) {
@@ -24,5 +24,9 @@ public class UserFavoriteHotelService {
 
     public void removeFavoriteHotelByUserId(UUID userId, UUID favoriteHotelId) {
         userFavoriteHotelRepository.remove(userId, favoriteHotelId);
+    }
+
+    public void delete(UserFavoriteHotel userFavoriteHotel) {
+        userFavoriteHotelRepository.remove(userFavoriteHotel);
     }
 }

@@ -28,10 +28,6 @@ public class HotelService {
         return hotelRepository.findHotelsByIds(uuids);
     }
 
-    public void create(Hotel hotel) {
-        hotelRepository.add(hotel);
-    }
-
     public void createWithConnection(Hotel hotel, Connection connection) {
         hotelRepository.addWithConnection(hotel, connection);
     }
@@ -44,7 +40,7 @@ public class HotelService {
         return hotelRepository.findById(hotelId);
     }
 
-    public void updateHotel(Hotel hotel) {
+    public void save(Hotel hotel) {
         hotelRepository.update(hotel);
     }
 }

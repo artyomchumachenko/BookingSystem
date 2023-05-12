@@ -11,21 +11,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class UserFavoriteHotelRepository implements Repository<UserFavoriteHotel> {
-    public void add(UUID userId, UUID hotelId) {
-        String insertQuery = "INSERT INTO users_favorite_hotels (user_id, hotel_id, favorite_hotels_id) VALUES (?, ?, ?)";
-        UUID favoriteHotelId = UUID.randomUUID();
-
-        try (Connection connection = ConnectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(insertQuery)) {
-            statement.setObject(1, userId);
-            statement.setObject(2, hotelId);
-            statement.setObject(3, favoriteHotelId);
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public List<Hotel> findFavoriteHotelsByUserId(UUID userId) {
         List<Hotel> favoriteHotels = new ArrayList<>();

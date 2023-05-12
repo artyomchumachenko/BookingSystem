@@ -21,18 +21,18 @@ import java.util.UUID;
 
 @WebServlet("/create-hotel")
 public class CreateHotelServlet extends HttpServlet {
-    private CityRepository cityDAO;
-    private HotelService hotelDAO;
+    private CityRepository cityRepository;
+    private HotelService hotelRepository;
 
     public void init() {
-        cityDAO = new CityRepository();
-        hotelDAO = new HotelService();
+        cityRepository = new CityRepository();
+        hotelRepository = new HotelService();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<City> cities = cityDAO.all();
+        List<City> cities = cityRepository.all();
 
         request.setAttribute("cities", cities);
 
@@ -56,7 +56,7 @@ public class CreateHotelServlet extends HttpServlet {
             connection = ConnectionPool.getConnection();
             connection.setAutoCommit(false);
 
-            hotelDAO.createWithConnection(hotel, connection);
+            hotelRepository.createWithConnection(hotel, connection);
 
             // Подтверждение транзакции и завершение операции добавления отеля
             connection.commit();

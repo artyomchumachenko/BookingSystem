@@ -25,7 +25,7 @@ public class SaveHotelServlet extends HttpServlet {
         // Обрабатываем полученные данные
         Hotel hotel = new Hotel(UUID.fromString(hotelId), hotelDescription, hotelIconUrl, hotelPhone, hotelName, hotelAddress, UUID.fromString(hotelCity));
         HotelService hotelService = new HotelService();
-        hotelService.updateHotel(hotel);
+        hotelService.save(hotel);
 
         // Отправляем ответ клиенту
         response.setContentType("text/plain");
