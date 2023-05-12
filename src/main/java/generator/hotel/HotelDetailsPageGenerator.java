@@ -4,20 +4,13 @@ import config.CookieHelper;
 import entity.country.City;
 import entity.country.Country;
 import entity.hotel.Hotel;
-import repository.country.CityRepository;
-import repository.country.CountryRepository;
-import repository.hotel.HotelFacilitiesQuery;
-import repository.hotel.HotelRepository;
-import repository.hotel.HotelRoomsQuery;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Класс динамической генерации hotel-details.html

@@ -35,7 +35,7 @@ public class ChangeRoleServlet extends HttpServlet {
                 RoleRepository roleRepository = new RoleRepository();
                 Role roleEntity = roleRepository.findRoleByName(role);
                 user.setRoleId(roleEntity.getRoleId());
-                roleRepository.sendLogAboutChangeRole(cookieHelper.getTargetFromCookie(request, "username"), user.getLogin(), roleEntity.getName());
+                roleRepository.addLogAboutChangeRole(cookieHelper.getTargetFromCookie(request, "username"), user.getLogin(), roleEntity.getName());
                 userService.updateUser(user);
             }
         } catch (SQLException e) {

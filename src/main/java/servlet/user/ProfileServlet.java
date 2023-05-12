@@ -54,7 +54,7 @@ public class ProfileServlet extends HttpServlet {
         } else {
             response.setStatus(200);
             RoleRepository roleRepository = new RoleRepository();
-            String roleName = roleRepository.findRoleById(user.getRoleId()).getName();
+            String roleName = roleRepository.findById(user.getRoleId()).getName();
             System.out.println(roleName);
             out.println(roleName);
         }

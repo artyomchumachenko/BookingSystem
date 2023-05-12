@@ -15,7 +15,7 @@ public class BookingService {
     }
 
     public void save(Booking booking) {
-        bookingRepository.save(booking);
+        bookingRepository.add(booking);
     }
 
     public List<Booking> getByUserId(UUID userId) {

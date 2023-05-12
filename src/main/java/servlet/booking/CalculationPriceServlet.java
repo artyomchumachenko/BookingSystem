@@ -3,8 +3,8 @@ package servlet.booking;
 import config.DateUtils;
 import entity.hotel.HotelRoom;
 import entity.hotel.PriceRule;
-import repository.hotel.HotelRoomsQuery;
-import repository.hotel.PriceRuleQuery;
+import repository.hotel.HotelRoomRepository;
+import repository.hotel.PriceRuleRepository;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,10 +33,10 @@ public class CalculationPriceServlet extends HttpServlet {
 
         // Проверяем валидность данных (здесь можно реализовать свою логику)
         boolean isValid = true;
-        HotelRoomsQuery hotelRoomsQuery = new HotelRoomsQuery();
-        PriceRuleQuery priceRuleQuery = new PriceRuleQuery();
-        HotelRoom hotelRoom = hotelRoomsQuery.findFreeRoomsByHotelIdAndRoomId(hotelId, roomType);
-        PriceRule priceRule = priceRuleQuery.findPriceRuleByHotelIdAndRoomId(hotelId, roomType);
+        HotelRoomRepository hotelRoomRepository = new HotelRoomRepository();
+        PriceRuleRepository priceRuleRepository = new PriceRuleRepository();
+        HotelRoom hotelRoom = hotelRoomRepository.findFreeRoomsByHotelIdAndRoomId(hotelId, roomType);
+        PriceRule priceRule = priceRuleRepository.findPriceRuleByHotelIdAndRoomId(hotelId, roomType);
         int amountDays = DateUtils.getDaysBetween(checkInDate, checkOutDate);
         if (hotelRoom == null) {
             isValid = false;

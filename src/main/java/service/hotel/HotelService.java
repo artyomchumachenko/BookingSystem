@@ -2,7 +2,7 @@ package service.hotel;
 
 import entity.hotel.Hotel;
 import repository.hotel.HotelRepository;
-import repository.hotel.HotelManagersQuery;
+import repository.hotel.HotelManagerRepository;
 
 import java.sql.Connection;
 import java.util.List;
@@ -16,12 +16,12 @@ public class HotelService {
     }
 
     public List<Hotel> getAllHotel() {
-        return hotelRepository.findAllHotels();
+        return hotelRepository.findAll();
     }
 
     public List<UUID> getMyHotelsIdsByUserId(UUID userId) {
-        HotelManagersQuery hotelManagersQuery = new HotelManagersQuery();
-        return hotelManagersQuery.findHotelIdsByUserId(userId);
+        HotelManagerRepository hotelManagerRepository = new HotelManagerRepository();
+        return hotelManagerRepository.findHotelIdsByUserId(userId);
     }
 
     public List<Hotel> getMyHotelsByIds(List<UUID> uuids) {
@@ -37,11 +37,11 @@ public class HotelService {
     }
 
     public void deleteById(UUID hotelId) {
-        hotelRepository.remove(hotelId);
+        hotelRepository.removeById(hotelId);
     }
 
     public Hotel getById(UUID hotelId) {
-        return hotelRepository.findHotelById(hotelId);
+        return hotelRepository.findById(hotelId);
     }
 
     public void updateHotel(Hotel hotel) {

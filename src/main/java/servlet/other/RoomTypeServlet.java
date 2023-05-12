@@ -19,7 +19,7 @@ public class RoomTypeServlet extends HttpServlet {
 
         // Получаем список городов из базы данных
         RoomRepository roomRepository = new RoomRepository();
-        List<Room> rooms = roomRepository.all();
+        List<Room> rooms = roomRepository.findAll();
 
         // Преобразуем список городов в формат JSON и отправляем его клиенту
         ObjectMapper objectMapper = new ObjectMapper();

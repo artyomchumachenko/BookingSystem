@@ -38,9 +38,9 @@ public class BookingConfirmPageGenerator {
         HotelService hotelService = new HotelService();
         Hotel hotel = hotelService.getById(hotelId);
         CountryRepository countryRepository = new CountryRepository();
-        Country country = countryRepository.findCountryByCityId(hotel.getCityId());
+        Country country = countryRepository.findByCityId(hotel.getCityId());
         CityRepository cityRepository = new CityRepository();
-        City city = cityRepository.findCityById(hotel.getCityId());
+        City city = cityRepository.findById(hotel.getCityId());
         RoomRepository roomRepository = new RoomRepository();
         Room room = roomRepository.findById(roomTypeId);
 

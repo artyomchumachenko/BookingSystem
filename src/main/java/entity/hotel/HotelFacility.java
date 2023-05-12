@@ -13,14 +13,14 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class HotelFacilities {
+public class HotelFacility {
     private UUID hfId;
     private UUID hotelId;
     private UUID fId;
     private boolean payableService;
 
-    public static HotelFacilities fromResultSet(ResultSet rs) throws SQLException {
-        return HotelFacilities.builder()
+    public static HotelFacility fromResultSet(ResultSet rs) throws SQLException {
+        return HotelFacility.builder()
                 .hfId(UUID.fromString(rs.getString("h_f_id")))
                 .hotelId(UUID.fromString(rs.getString("hotel_id")))
                 .fId(UUID.fromString(rs.getString("f_id")))

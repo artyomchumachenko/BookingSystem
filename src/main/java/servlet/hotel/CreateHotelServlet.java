@@ -4,9 +4,8 @@ import config.ConnectionPool;
 import config.CookieHelper;
 import entity.country.City;
 import entity.hotel.Hotel;
-import entity.hotel.PriceRule;
 import repository.country.CityRepository;
-import repository.hotel.HotelManagersQuery;
+import repository.hotel.HotelManagerRepository;
 import service.hotel.HotelService;
 
 import javax.servlet.ServletException;
@@ -66,11 +65,11 @@ public class CreateHotelServlet extends HttpServlet {
             connection.setAutoCommit(false);
 
             CookieHelper cookieHelper = new CookieHelper();
-            UUID ownerId = UUID.fromString(cookieHelper.getTargetFromCookie(request, "user_uuid"));
-            HotelManagersQuery hotelManagersQuery = new HotelManagersQuery();
+            UUID managerId = UUID.fromString(cookieHelper.getTargetFromCookie(request, "user_uuid"));
+            HotelManagerRepository hotelManagerRepository = new HotelManagerRepository();
             System.out.println("HotelId " + hotelId);
-            System.out.println("OwnerId " + ownerId);
-            hotelManagersQuery.addOwnerToHotelWithConnection(ownerId, hotelId, connection);
+            System.out.println("ManagerId " + managerId);
+            hotelManagerRepository.addHotelManagerWithConnection(managerId, hotelId, connection);
 
             // Подтверждение транзакции и завершение операции добавления менеджера отеля
             connection.commit();

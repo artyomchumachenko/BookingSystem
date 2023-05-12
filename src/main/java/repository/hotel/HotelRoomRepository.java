@@ -2,17 +2,13 @@ package repository.hotel;
 
 import config.ConnectionPool;
 import entity.hotel.HotelRoom;
+import repository.Repository;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.sql.*;
+import java.util.*;
 
-public class HotelRoomsQuery {
+public class HotelRoomRepository implements Repository<HotelRoom> {
 
     /**
      * String название: Тип комнаты
@@ -97,4 +93,79 @@ public class HotelRoomsQuery {
         }
     }
 
+    @Override
+    public void add(HotelRoom item) {
+        String sql = "INSERT INTO public.hotel_rooms (hotel_id, room_id, free_rooms) VALUES (?, ?, ?)";
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setObject(1, item.getHotelId());
+            statement.setObject(2, item.getRoomId());
+            statement.setInt(3, item.getFreeRooms());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update(HotelRoom item) {
+        String sql = "UPDATE public.hotel_rooms SET hotel_id = ?, room_id = ?, free_rooms = ? WHERE hotel_room_id = ?";
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setObject(1, item.getHotelId());
+            statement.setObject(2, item.getRoomId());
+            statement.setInt(3, item.getFreeRooms());
+            statement.setObject(4, item.getHotelRoomId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void remove(HotelRoom item) {
+        String sql = "DELETE FROM public.hotel_rooms WHERE hotel_room_id = ?";
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setObject(1, item.getHotelRoomId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public HotelRoom findById(UUID id) {
+        HotelRoom hotelRoom = null;
+        String sql = "SELECT * FROM public.hotel_rooms WHERE hotel_room_id = ?";
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setObject(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                hotelRoom = HotelRoom.fromResultSet(resultSet);
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hotelRoom;
+    }
+
+    @Override
+    public List<HotelRoom> findAll() {
+        List<HotelRoom> hotelRooms = new ArrayList<>();
+        String sql = "SELECT * FROM public.hotel_rooms";
+        try (Connection connection = ConnectionPool.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                hotelRooms.add(HotelRoom.fromResultSet(resultSet));
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hotelRooms;
+    }
 }
