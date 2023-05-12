@@ -45,6 +45,7 @@ payButton.addEventListener("click", function () {
 
                     // после этого можно взять создать pdf файл текущей страницы и отправить его
                     // в БД отдельным запросом и потом скачивать Ticket.pdf?
+                    window.location.href = "/BookingSystem_war/booking-history";
                 }
             };
             xhr.open("POST", "/BookingSystem_war/payment", true);
