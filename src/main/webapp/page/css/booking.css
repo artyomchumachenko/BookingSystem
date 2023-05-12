@@ -109,6 +109,12 @@ input[type="date"] {
     background-color: #0062cc;
 }
 
+#calculate-price-button:active {
+    transform: translateY(2px);
+    opacity: 0.8;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 #book-button {
     background-color: #007bff;
     border: none;
@@ -121,6 +127,12 @@ input[type="date"] {
 
 #book-button:hover {
     background-color: #0062cc;
+}
+
+#book-button:active {
+    transform: translateY(2px);
+    opacity: 0.8;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .right-image {

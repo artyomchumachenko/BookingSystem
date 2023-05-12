@@ -1,5 +1,6 @@
 var urlParams = new URLSearchParams(window.location.search);
 var hotelId = urlParams.get('hotelId'); // здесь указываем название параметра
+var userId = urlParams.get('userId'); // здесь указываем название параметра
 
 var backButton = document.getElementById("back-button");
 // Добавляем обработчик события клика
@@ -16,6 +17,7 @@ var childrenSelect;
 var roomTypeSelect;
 var checkInDateInput;
 var checkOutDateInput;
+var totalPrice;
 // добавляем обработчик события клика на кнопку "Рассчитать цену"
 calculatePriceButton.addEventListener('click', () => {
     adultsSelect = document.getElementById("adults").value;
@@ -42,12 +44,15 @@ calculatePriceButton.addEventListener('click', () => {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     // Обрабатываем ответ от сервера
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             var totalPriceLabel = document.getElementById("total-price-label");
             var response = xhr.responseText;
             if (xhr.status === 200) {
                 totalPriceLabel.innerHTML = "Итоговая цена: " + response + " руб.";
+                totalPrice = response;
+                bookButton.disabled = false;
+                bookButton.style.backgroundColor = "#007bff";
             } else {
                 totalPriceLabel.innerHTML = "Итоговая цена: " + response;
                 console.error("Произошла ошибка при получении данных от сервера");
@@ -56,6 +61,28 @@ calculatePriceButton.addEventListener('click', () => {
     };
 
     xhr.send();
+});
+
+// Если меняются данные формы для Бронирования блокируем кнопку для "Забронировать"
+const form = document.querySelector('form');
+form.addEventListener('change', () => {
+    console.log('Что-то изменилось');
+    bookButton.style.backgroundColor = "grey";
+    bookButton.disabled = true;
+});
+
+// Обработчик событий для кнопки "Забронировать
+bookButton.addEventListener("click", function () {
+    var numGuests = parseInt(adultsSelect) + parseInt(childrenSelect);
+    // Составляем URL с параметрами
+    var url = "?numGuests=" + encodeURIComponent(numGuests)
+        + "&roomId=" + encodeURIComponent(roomTypeSelect)
+        + "&checkInDate=" + encodeURIComponent(checkInDateInput)
+        + "&checkOutDate=" + encodeURIComponent(checkOutDateInput)
+        + "&hotelId=" + encodeURIComponent(hotelId)
+        + "&userId=" + encodeURIComponent(userId)
+        + "&totalPrice=" + encodeURIComponent(totalPrice);
+    window.location.href = "/BookingSystem_war/booking-confirm" + url;
 });
 
 function clientValidationBeforeCalculationPrice() {
@@ -75,7 +102,7 @@ function clientValidationBeforeCalculationPrice() {
         return false;
     }
 
-    if (new Date(checkInDate).setHours(0,0,0,0) < new Date(currentDate).setHours(0,0,0,0)) {
+    if (new Date(checkInDate).setHours(0, 0, 0, 0) < new Date(currentDate).setHours(0, 0, 0, 0)) {
         alert("Дата заезда должна быть не раньше сегодняшней даты.");
         return false;
     }
@@ -105,5 +132,6 @@ function loadRoomTypes() {
 }
 
 window.onload = function () {
+    bookButton.style.backgroundColor = "grey";
     loadRoomTypes();
 };

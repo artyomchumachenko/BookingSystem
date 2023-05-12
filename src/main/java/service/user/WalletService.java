@@ -29,4 +29,8 @@ public class WalletService {
             throw new RuntimeException(e);
         }
     }
+
+    public void save(Wallet userWallet) {
+        walletRepository.update(userWallet);
+    }
 }

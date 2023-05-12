@@ -60,4 +60,20 @@ public class WalletRepository {
             }
         }
     }
+
+    public void update(Wallet userWallet) {
+        String sql = "UPDATE wallets SET balance_rub = ?, frozen = ? WHERE wallet_id = ?";
+        try (Connection conn = ConnectionPool.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setBigDecimal(1, userWallet.getBalanceRub());
+            stmt.setBoolean(2, userWallet.isFrozen());
+            stmt.setObject(3, userWallet.getWalletId());
+            // Выполнение запроса
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            // Обработка ошибок
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -27,4 +27,20 @@ public class RoomRepository {
         }
         return rooms;
     }
+
+    public Room findById(UUID roomId) {
+        String query = "SELECT * FROM rooms WHERE room_id = ?";
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setObject(1, roomId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return Room.fromResultSet(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }

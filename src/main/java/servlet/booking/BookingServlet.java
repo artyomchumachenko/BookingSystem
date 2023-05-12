@@ -25,4 +25,8 @@ public class BookingServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.getWriter().print(bookingPageGenerator.getPage(hotel));
     }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("page/html/booking-confirm.html");
+    }
 }

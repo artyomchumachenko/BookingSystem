@@ -52,6 +52,9 @@ public class ProfilePageGenerator {
             sb.append("  </p>\n");
             sb.append("</div>\n");
             pageTemplate = pageTemplate.replace("<!--    change-role-->", sb.toString());
+        } else if (userService.getRoleById(user.getRoleId()).getName().equals("CLIENT")) {
+            // Добавить кнопку просмотра текущих бронирований "История бронирований"
+            pageTemplate = pageTemplate.replace("<!--    История бронирований-->", "<button id=\"booking-history-button\">История бронирований</button>");
         }
         return pageTemplate;
     }

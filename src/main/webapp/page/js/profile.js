@@ -115,3 +115,11 @@ if (getCookie("role") === 'ADMIN') {
         xhr.send(params);
     });
 }
+
+var bookingHistory = document.getElementById("booking-history-button");
+if (bookingHistory != null) {
+    bookingHistory.addEventListener("click", function () {
+        console.log("History is open");
+        window.location.href = "/BookingSystem_war/booking-history";
+    });
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/BookingSystem_war/page/css/booking-confirm.css">
+    <title>Оплата бронирования</title>
+</head>
+<body>
+<h1>Оплата бронирования отеля</h1>
+<form>
+    <fieldset disabled>
+        <legend>Информация о бронировании</legend>
+        <label for="hotel-name">Название отеля:</label>
+        <input type="text" id="hotel-name" name="hotel-name" value="Отель"><br>
+        <label for="country">Страна:</label>
+        <input type="text" id="country" name="country" value="Страна"><br>
+        <label for="city">Город:</label>
+        <input type="text" id="city" name="city" value="Город"><br>
+        <label for="address">Адрес:</label>
+        <input type="text" id="address" name="address" value="Адрес"><br>
+        <label for="phone">Телефон:</label>
+        <input type="tel" id="phone" name="phone" value="Телефон"><br>
+        <label for="room-type">Тип номера:</label>
+        <select id="room-type" name="room-type">
+            <option value="single">Тип номера</option>
+        </select><br>
+        <label for="guests">Общее количество гостей:</label>
+        <input type="number" id="guests" name="guests" min="1" max="10" value="Гостей"><br>
+        <label for="checkin">Дата заезда:</label>
+        <input type="date" id="checkin" name="checkin" value="Дата заезда"><br>
+        <label for="checkout">Дата отъезда:</label>
+        <input type="date" id="checkout" name="checkout" value="Дата отъезда"><br>
+        <label for="total-price">Итоговая цена:</label>
+        <input type="text" id="total-price" name="total-price" step="0.01" min="0" value="Итоговая цена"><br>
+    </fieldset>
+    <fieldset id="payer-details">
+        <legend>Данные плательщика</legend>
+        <label for="full-name">ФИО:</label>
+        <input type="text" id="full-name" name="full-name"><br>
+        <label for="passport">Паспорт (серия, номер):</label>
+        <input type="text" id="passport" name="passport"><br>
+        <label for="phone-number">Номер телефона:</label>
+        <input type="tel" id="phone-number" name="phone-number"><br>
+        <label for="email">Email для чека:</label>
+        <input type="email" id="email" name="email"><br>
+    </fieldset>
+    <button type="button" id="pay-button">Оплатить</button>
+</form>
+</body>
+<script src="/BookingSystem_war/page/js/booking-confirm.js"></script>
+</html>
