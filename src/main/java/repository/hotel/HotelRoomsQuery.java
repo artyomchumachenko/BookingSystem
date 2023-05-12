@@ -1,6 +1,7 @@
 package repository.hotel;
 
 import config.ConnectionPool;
+import entity.hotel.HotelRoom;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -78,4 +79,22 @@ public class HotelRoomsQuery {
         }
         return prices;
     }
+
+    public HotelRoom findFreeRoomsByHotelIdAndRoomId(UUID hotelId, UUID roomId) {
+        String query = "SELECT * FROM hotel_rooms WHERE hotel_id = ? AND room_id = ?";
+        try (Connection connection = ConnectionPool.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setObject(1, hotelId);
+            statement.setObject(2, roomId);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return HotelRoom.fromResultSet(rs);
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

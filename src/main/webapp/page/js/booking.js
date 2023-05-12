@@ -1,9 +1,9 @@
+var urlParams = new URLSearchParams(window.location.search);
+var hotelId = urlParams.get('hotelId'); // здесь указываем название параметра
+
 var backButton = document.getElementById("back-button");
 // Добавляем обработчик события клика
 backButton.addEventListener("click", function () {
-    var urlParams = new URLSearchParams(window.location.search);
-    var hotelId = urlParams.get('hotelId'); // здесь указываем название параметра
-
     // здесь указываем параметры запроса
     window.location.href = "/BookingSystem_war/details?hotelId=" + hotelId;
 });
@@ -32,13 +32,29 @@ calculatePriceButton.addEventListener('click', () => {
         + "&room-type=" + encodeURIComponent(roomTypeSelect)
         + "&check-in-date=" + encodeURIComponent(checkInDateInput)
         + "&check-out-date=" + encodeURIComponent(checkOutDateInput)
-    ;
+        + "&hotelId=" + encodeURIComponent(hotelId);
 
     // Отправляем GET-запрос на сервер
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
+
     // устанавливаем заголовок Content-Type для правильной обработки запроса на сервере
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    // Обрабатываем ответ от сервера
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var totalPriceLabel = document.getElementById("total-price-label");
+            var response = xhr.responseText;
+            if (xhr.status === 200) {
+                totalPriceLabel.innerHTML = "Итоговая цена: " + response + " руб.";
+            } else {
+                totalPriceLabel.innerHTML = "Итоговая цена: " + response;
+                console.error("Произошла ошибка при получении данных от сервера");
+            }
+        }
+    };
+
     xhr.send();
 });
 
@@ -59,7 +75,7 @@ function clientValidationBeforeCalculationPrice() {
         return false;
     }
 
-    if (checkInDate < currentDate) {
+    if (new Date(checkInDate).setHours(0,0,0,0) < new Date(currentDate).setHours(0,0,0,0)) {
         alert("Дата заезда должна быть не раньше сегодняшней даты.");
         return false;
     }

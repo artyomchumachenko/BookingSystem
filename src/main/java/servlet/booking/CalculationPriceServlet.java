@@ -1,39 +1,67 @@
 package servlet.booking;
 
+import config.DateUtils;
+import entity.hotel.HotelRoom;
+import entity.hotel.PriceRule;
+import repository.hotel.HotelRoomsQuery;
+import repository.hotel.PriceRuleQuery;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.UUID;
 
 @WebServlet("/calculation-price")
 public class CalculationPriceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Получаем параметры из запроса
-        String adults = request.getParameter("adults");
+        UUID hotelId = UUID.fromString(request.getParameter("hotelId"));
+        Integer adults = Integer.valueOf(request.getParameter("adults"));
         System.out.println(adults);
-        String children = request.getParameter("children");
+        Integer children = Integer.valueOf(request.getParameter("children"));
         System.out.println(children);
-        String roomType = request.getParameter("room-type");
+        UUID roomType = UUID.fromString(request.getParameter("room-type"));
         System.out.println(roomType);
-        String checkInDate = request.getParameter("check-in-date");
+        LocalDate checkInDate = LocalDate.parse(request.getParameter("check-in-date"));
         System.out.println(checkInDate);
-        String checkOutDate = request.getParameter("check-out-date");
+        LocalDate checkOutDate = LocalDate.parse(request.getParameter("check-out-date"));
         System.out.println(checkOutDate);
 
         // Проверяем валидность данных (здесь можно реализовать свою логику)
         boolean isValid = true;
-        if (checkInDate == null || checkInDate.isEmpty() || checkOutDate == null || checkOutDate.isEmpty()) {
+        HotelRoomsQuery hotelRoomsQuery = new HotelRoomsQuery();
+        PriceRuleQuery priceRuleQuery = new PriceRuleQuery();
+        HotelRoom hotelRoom = hotelRoomsQuery.findFreeRoomsByHotelIdAndRoomId(hotelId, roomType);
+        PriceRule priceRule = priceRuleQuery.findPriceRuleByHotelIdAndRoomId(hotelId, roomType);
+        int amountDays = DateUtils.getDaysBetween(checkInDate, checkOutDate);
+        if (hotelRoom == null) {
+            isValid = false;
+        } else if (hotelRoom.getFreeRooms() <= 0) {
             isValid = false;
         }
 
         // Если данные корректны, перенаправляем на страницу подтверждения бронирования
+        response.setCharacterEncoding("UTF-8");
         if (isValid) {
-//            response.sendRedirect("/BookingSystem_war/confirm");
-            System.out.println("Information valid");
+            response.getWriter().println(calculationTotalPrice(
+                    priceRule.getAdultPricePerDay(),
+                    priceRule.getKidPricePerDay(),
+                    amountDays
+            ));
         } else {
             // В случае некорректных данных выводим ошибку пользователю
-            response.getWriter().println("Invalid data");
+            response.setStatus(201);
+            response.getWriter().println("нет свободных комнат :(");
         }
+    }
+
+    private BigDecimal calculationTotalPrice(BigDecimal adultDayPrice, BigDecimal childrenDayPrice, int amountDays) {
+        BigDecimal adultPrice = adultDayPrice.multiply(BigDecimal.valueOf(amountDays));
+        BigDecimal childrenPrice = childrenDayPrice.multiply(BigDecimal.valueOf(amountDays));
+        return adultPrice.add(childrenPrice);
     }
 }
