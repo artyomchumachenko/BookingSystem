@@ -50,7 +50,9 @@ public class CalculationPriceServlet extends HttpServlet {
             response.getWriter().println(calculationTotalPrice(
                     priceRule.getAdultPricePerDay(),
                     priceRule.getKidPricePerDay(),
-                    amountDays
+                    amountDays,
+                    adults,
+                    children
             ));
         } else {
             // В случае некорректных данных выводим ошибку пользователю
@@ -59,9 +61,10 @@ public class CalculationPriceServlet extends HttpServlet {
         }
     }
 
-    private BigDecimal calculationTotalPrice(BigDecimal adultDayPrice, BigDecimal childrenDayPrice, int amountDays) {
-        BigDecimal adultPrice = adultDayPrice.multiply(BigDecimal.valueOf(amountDays));
-        BigDecimal childrenPrice = childrenDayPrice.multiply(BigDecimal.valueOf(amountDays));
+    private BigDecimal calculationTotalPrice(BigDecimal adultDayPrice, BigDecimal childrenDayPrice, int amountDays,
+                                             Integer adults, Integer children) {
+        BigDecimal adultPrice = adultDayPrice.multiply(BigDecimal.valueOf(amountDays)).multiply(BigDecimal.valueOf(adults));
+        BigDecimal childrenPrice = childrenDayPrice.multiply(BigDecimal.valueOf(amountDays)).multiply(BigDecimal.valueOf(children));
         return adultPrice.add(childrenPrice);
     }
 }
