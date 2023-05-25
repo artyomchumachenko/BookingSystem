@@ -51,7 +51,15 @@ calculatePriceButton.addEventListener('click', () => {
             if (xhr.status === 200) {
                 totalPriceLabel.innerHTML = "Итоговая цена: " + response + " руб.";
                 totalPrice = response;
+
+                // Делаем кнопку неактивной
+                calculatePriceButton.disabled = true;
+                // Делаем кнопку невидимой
+                calculatePriceButton.style.display = 'none';
+                // Делаем кнопку активной
                 bookButton.disabled = false;
+                // Делаем кнопку видимой
+                bookButton.style.display = 'block'; // Или можно использовать 'inline' или 'inline-block', в зависимости от требуемого поведения кнопки
                 bookButton.style.backgroundColor = "#007bff";
             } else {
                 totalPriceLabel.innerHTML = "Итоговая цена: " + response;
@@ -67,8 +75,15 @@ calculatePriceButton.addEventListener('click', () => {
 const form = document.querySelector('form');
 form.addEventListener('change', () => {
     console.log('Что-то изменилось');
-    bookButton.style.backgroundColor = "grey";
+    // Делаем кнопку неактивной
     bookButton.disabled = true;
+    // Делаем кнопку невидимой
+    bookButton.style.display = 'none';
+
+    // Делаем кнопку активной
+    calculatePriceButton.disabled = false;
+    // Делаем кнопку видимой
+    calculatePriceButton.style.display = 'block';
 });
 
 // Обработчик событий для кнопки "Забронировать
@@ -133,5 +148,9 @@ function loadRoomTypes() {
 
 window.onload = function () {
     bookButton.style.backgroundColor = "grey";
+    // Делаем кнопку неактивной
+    bookButton.disabled = true;
+    // Делаем кнопку невидимой
+    bookButton.style.display = 'none';
     loadRoomTypes();
 };

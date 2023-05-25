@@ -19,7 +19,6 @@ import java.util.UUID;
 /**
  * URL стартовой страницы
  * https://localhost:8443/BookingSystem_war/
- * <p>
  * Главная страница сайта
  */
 @WebServlet("")
